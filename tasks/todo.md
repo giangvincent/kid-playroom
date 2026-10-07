@@ -385,6 +385,16 @@ pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and
   HTML probes were inconclusive — served-page status codes for the six
   routes and 3 clips remain unchecked (approval reviewer hit a 429 rate
   limit; the sandbox also denies listening sockets).
+- Bugfix (parent report, 2026-10-08): the fullscreen button lost its escape
+  state after game -> list -> game navigation. Root cause: isFullscreen was
+  a one-shot read plus a single fullscreenchange listener, so an event
+  missed around a route mount (or an engine that fires only the webkit
+  variant) stuck the label for the whole session — reproduced live in the
+  in-app browser. Fix: derive it with useSyncExternalStore (snapshot
+  re-read at every mount/subscribe + fullscreenchange and
+  webkitfullscreenchange). Gates re-run: typecheck / lint / test / build
+  pass; browser check confirms the label follows enter/exit events and
+  re-reads correctly on every navigation.
 - NOT yet verified (needs the parent's devices): the actual praise playback
   + advance-after-praise pacing on a real screen, pop animation feel, and an
   airplane-mode run pulling the 3 new clips through the v6 cache.
