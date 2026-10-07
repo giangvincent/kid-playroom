@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: APP_NAME,
     description: "Phòng chơi kỹ thuật số nhỏ cho trẻ nhỏ.",
     start_url: "/",
-    display: "standalone",
+    display: "fullscreen",
     orientation: "any",
     background_color: "#fff1e8",
     theme_color: "#fff1e8",
