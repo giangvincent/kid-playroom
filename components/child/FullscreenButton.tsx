@@ -10,10 +10,16 @@ export function FullscreenButton() {
   const { requestUnlock } = useParentGate();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [supported, setSupported] = useState(false);
+  const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
     setSupported(
       typeof document.documentElement.requestFullscreen === "function",
+    );
+    setInstalled(
+      window.matchMedia(
+        "(display-mode: standalone), (display-mode: fullscreen)",
+      ).matches,
     );
     const update = () => setIsFullscreen(document.fullscreenElement !== null);
     update();
@@ -21,7 +27,7 @@ export function FullscreenButton() {
     return () => document.removeEventListener("fullscreenchange", update);
   }, []);
 
-  if (!supported) {
+  if (!supported || installed) {
     return null;
   }
 

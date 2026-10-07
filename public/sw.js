@@ -1,4 +1,4 @@
-const CACHE_NAME = "playroom-v3";
+const CACHE_NAME = "playroom-v4";
 
 // Kept in sync with lib/games/registry.ts. Precaching every route (and the
 // hashed chunks each page references) lets the whole playroom run offline
