@@ -55,7 +55,12 @@ function say(text: string, enabled: boolean, replace: boolean): void {
   utterance.lang = "vi-VN";
   const voice = cachedVoice ?? findVietnameseVoice();
   if (voice) {
-    utterance.voice = voice;
+    try {
+      utterance.voice = voice;
+    } catch {
+      // A few engines expose voice objects they then refuse; `lang` alone
+      // still selects a Vietnamese voice where the platform has one.
+    }
   }
   utterance.rate = 0.9;
   utterance.pitch = 1;

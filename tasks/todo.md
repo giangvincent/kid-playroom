@@ -131,68 +131,92 @@ Each task is one focused session, ≤ ~5 files, with acceptance + verification.
 
 ## Phase A — Voice foundation
 
-- [ ] S1: Vietnamese label module + tests
+- [x] S1: Vietnamese label module + tests
   - Acceptance: `lib/labels.ts` exports shape/animal/colour label maps and `colorPhrase`/`animalPhrase`/`shapePhrase`; every `SHAPE_NAMES` and `ANIMAL_NAMES` sprite and every colour has a label; builders return "màu …", "con …", "hình …".
   - Verify: `npm run test`
   - Files: `lib/labels.ts`, `lib/labels.test.ts`
 
-- [ ] S2: Speech module + trim audio cues
+- [x] S2: Speech module + trim audio cues
   - Acceptance: `lib/speech.ts` speaks `vi-VN`, cancels the previous utterance before speaking, no-ops when disabled or unsupported, and picks a Vietnamese voice (handling the async voice list). `lib/audio.ts` keeps only the completion cue.
   - Verify: `npm run typecheck` + manual in S12
   - Files: `lib/speech.ts`, `lib/audio.ts`
 
-- [ ] S3: Sound defaults on
+- [x] S3: Sound defaults on
   - Acceptance: `DEFAULT_CONFIG.soundEnabled` is `true`; stored configs are unaffected; storage tests updated for the new default.
   - Verify: `npm run test`
   - Files: `lib/config.ts`, `lib/storage.test.ts`
 
 ## Phase B — Parent gate & fullscreen
 
-- [ ] S4: Shared parent gate
+- [x] S4: Shared parent gate
   - Acceptance: `ParentGateProvider` exposes `useParentGate().requestUnlock(action)` and renders one PIN modal using the stored PIN; correct PIN runs the action, wrong PIN resets and stays.
   - Verify: `npm run typecheck` + browser at CP-S2
   - Files: `components/child/ParentGateProvider.tsx`
 
-- [ ] S5: Hidden corner uses the shared gate
+- [x] S5: Hidden corner uses the shared gate
   - Acceptance: `ExitCorner` no longer owns its own modal; the long-press calls `requestUnlock` and exits to home; behaviour otherwise unchanged.
   - Verify: browser
   - Files: `components/child/ExitCorner.tsx`
 
-- [ ] S6: Fullscreen + home controls
+- [x] S6: Fullscreen + home controls
   - Acceptance: a Child Mode button enters fullscreen on tap; while fullscreen it offers "Thoát toàn màn hình", which calls `requestUnlock` before exiting; it hides itself where the API is unavailable. A "Về nhà" button routes through the same gate and returns to Parent Mode.
   - Verify: browser
   - Files: `components/child/FullscreenButton.tsx`, `components/child/HomeButton.tsx`, `lib/hooks/useExitToHome.ts`
 
-- [ ] S7: Wire the play layout + visible home button
+- [x] S7: Wire the play layout + visible home button
   - Acceptance: the layout provides the gate and controls for every `/play` route and no longer auto-requests fullscreen; `/play` shows a visible "Về nhà" button gated by the PIN; the GameShell header is padded so nothing collides with the top-right control; wake lock, history trap and context-menu block are retained.
   - Verify: browser (CP-S2)
   - Files: `app/play/layout.tsx`, `app/play/page.tsx`, `components/child/GameShell.tsx`
 
 ## Phase C — Games speak
 
-- [ ] S8: Matching + Memory speech
+- [x] S8: Matching + Memory speech
   - Acceptance: the goal is spoken on open and on replay; tapping a matching tile speaks the shape name; revealing a memory card speaks its animal name; the per-tap beep is gone; the win jingle is unchanged; labels come from `lib/labels`.
   - Verify: browser + `npm run typecheck`
   - Files: `components/games/matching/MatchingGame.tsx`, `components/games/memory/MemoryGame.tsx`
 
-- [ ] S9: Color + Animal speech
+- [x] S9: Color + Animal speech
   - Acceptance: the goal is spoken on open and each new round ("Tìm màu …" / "Tìm tất cả con …"); tapping an option speaks "màu …" / "con …"; the per-tap beep is gone; the win jingle is unchanged; local `COLOR_LABELS`/`ANIMAL_LABELS` are replaced by `lib/labels`.
   - Verify: browser + `npm run typecheck`
   - Files: `components/games/color/ColorGame.tsx`, `components/games/animal/AnimalGame.tsx`
 
-- [ ] S10: Size goal speech
+- [x] S10: Size goal speech
   - Acceptance: the goal is spoken on open and each new round ("Chạm vào hình lớn nhất" / "…nhỏ nhất"); no per-tap speech; the win jingle is unchanged.
   - Verify: browser
   - Files: `components/games/size/SizeGame.tsx`
 
 ## Phase D — Docs & verification
 
-- [ ] S11: Device setup guide
+- [x] S11: Device setup guide
   - Acceptance: `docs/DEVICE_SETUP.md` in Vietnamese covers installing the PWA, Android screen pinning, iPad Guided Access, and installing a Vietnamese voice; it does not claim the app can block OS gestures.
   - Verify: read-through
   - Files: `docs/DEVICE_SETUP.md`
 
-- [ ] S12: Browser + device verification
+- [x] S12: Browser + device verification
   - Acceptance: `typecheck`, `lint`, `test`, `build` pass; browser walkthrough covers the gate (hidden corner, "Về nhà", fullscreen-exit), speech on and off, and every game; Sprint 1 offline still works; touch targets remain ≥ 64×64 px.
   - Verify: commands + browser (CP-S4)
   - Files: touched as needed
+
+## Sprint 2 Status
+
+All 12 tasks implemented and verified in-browser (Chromium):
+
+- `typecheck`, `lint`, `test` (46 unit tests), and production `build` all pass.
+- Parent gate verified on one shared modal: hidden corner, visible "Về nhà", and
+  fullscreen-exit all route through it; a wrong PIN leaves the child in place, the correct
+  PIN returns to Parent Mode and releases fullscreen.
+- The fullscreen button really enters fullscreen (it is a user gesture, which the old
+  auto-request could never be), and leaving fullscreen requires the PIN.
+- Speech verified by stubbing `speechSynthesis` and capturing utterances:
+  Matching "Ghép các hình giống nhau" + "hình tam giác"; Animals "Tìm tất cả con ếch" +
+  "con chó"; Memory "Tìm hai thẻ giống nhau" + "con chó"; Sizes "Chạm vào hình lớn nhất";
+  Colors "Tìm màu tím" + "màu hồng". Every round re-announces its goal — including when the
+  new round randomly picks the same colour again (which is why the round nonce exists).
+  With Âm thanh off, nothing is spoken and the games still render.
+- A real bug was caught by that testing: assigning `utterance.voice` can throw on some
+  engines, which crashed the page. It is now guarded.
+- Sprint 1 offline regression still passes: `/`, `/play` and all six games render with the
+  network off; no interactive target is under 64×64 px.
+
+**Still manual:** `docs/DEVICE_SETUP.md` must be followed on a real tablet — Android screen
+pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and audible.
