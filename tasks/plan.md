@@ -180,3 +180,48 @@ one combined precache list update per task, merged trivially.
   swap source later touches only the files, not code (name -> file map).
 - **Drawing resize loops** -> ResizeObserver writes only when the element size
   actually differs from the bitmap; no state, no re-render.
+
+---
+
+# Sprint 4 Plan — Bigger Boards, Playful Prompts, Reliable Touch
+
+Derived from SPEC.md section 15 (approved). Tasks live in tasks/todo.md.
+
+## Strategy
+
+Three small, mostly independent seams: the touch fix changes how tiles receive
+input (one shared useTap hook + touch-action on the game roots), board sizing
+is CSS-only, and the goal rephrase is string swaps plus regenerated clips.
+Code first, then audio generation (needs network), then gates + headless
+smoke, then commit and push to main as the parent explicitly requested.
+
+## Components & Dependencies
+
+    P1 useTap hook + tests ──► consumed by all five games in P2/P3
+    P2 Responsive boards ──► globals.css .board-tile, five game components,
+                             size steps become relative weights
+    P3 Goal phrasing ──► labels.goalPhrase, five game components,
+                         speech-files test, gen-speech.mjs
+    P4 Clips ──► generate 18 new + delete 18 old + sw.js list (network)
+    P5 Verification ──► gates + headless browser smoke
+    P6 Commit + push main
+
+P2 and P3 touch the same five game files, so they are applied together.
+
+## Verification Checkpoints
+
+- CP1 (after P3): typecheck + lint green; every goal maps to a clip slug.
+- CP2 (after P4): speech-files test finds all 40 clips; no obsolete clips.
+- CP3 (after P5): all four gates pass; headless smoke taps a tile via pointer
+  events and confirms the boards scale with the viewport.
+- P6: push only after CP3 passes.
+
+## Risks
+
+- Touch geometry unknown on some browsers -> the palm filter treats unknown
+  geometry as a finger; a palm resting exactly ON a tile may still tap
+  (documented ponytail ceiling in the hook).
+- edge-tts network failure -> retry/escalate; clips are committed, runtime
+  stays offline.
+- clamp steps colliding at viewport extremes -> ranges chosen so steps stay
+  distinct and >= 64 px on a phone and clearly separated on desktop.

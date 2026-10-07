@@ -5,8 +5,9 @@ import { cx } from "@/lib/cx";
 import { GameImage } from "@/components/ui/GameImage";
 import { buildAnimalScene, type SceneTile } from "@/lib/logic/animalScene";
 import type { GameProps } from "@/lib/games/types";
+import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
-import { animalLabel } from "@/lib/labels";
+import { animalLabel, goalPhrase } from "@/lib/labels";
 import { ANIMAL_NAMES } from "@/lib/assets";
 import { speak } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
@@ -18,11 +19,10 @@ export function AnimalGame({ onWin }: GameProps) {
   const [scene] = useState(() => buildAnimalScene(ANIMAL_NAMES));
   const [found, setFound] = useState<Set<string>>(new Set());
   const [wrongId, setWrongId] = useState<string | null>(null);
+  const goal = goalPhrase(animalLabel(scene.target));
+  const press = useTap(tap);
 
-  useSpeakGoal(
-    `Tìm tất cả ${animalLabel(scene.target)}`,
-    config.soundEnabled,
-  );
+  useSpeakGoal(goal, config.soundEnabled);
 
   function tap(tile: SceneTile) {
     if (found.has(tile.id)) {
@@ -46,10 +46,13 @@ export function AnimalGame({ onWin }: GameProps) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex touch-none flex-col items-center gap-6">
       <div className="flex items-center gap-3">
-        <span className="text-xl font-bold">Tìm tất cả</span>
-        <GameImage name={scene.target} size={56} />
+        <span className="text-2xl font-bold">{goal}</span>
+        <GameImage
+          name={scene.target}
+          className="h-[min(14vmin,7rem)] w-[min(14vmin,7rem)]"
+        />
       </div>
       <div className="grid grid-cols-4 gap-4">
         {scene.tiles.map((tile) => {
@@ -61,15 +64,15 @@ export function AnimalGame({ onWin }: GameProps) {
               type="button"
               disabled={isFound}
               aria-label={animalLabel(tile.sprite)}
-              onClick={() => tap(tile)}
+              {...press(tile)}
               className={cx(
-                "flex h-24 w-24 items-center justify-center border-4 border-ink",
+                "board-tile flex items-center justify-center border-4 border-ink",
                 "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
                 isWrong ? "bg-danger" : "bg-paper",
                 isFound && "opacity-25",
               )}
             >
-              <GameImage name={tile.sprite} size={72} />
+              <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />
             </button>
           );
         })}

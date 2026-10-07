@@ -1,16 +1,21 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { ANIMAL_LABELS, COLOR_LABELS, SHAPE_LABELS } from "@/lib/labels";
+import {
+  ANIMAL_LABELS,
+  COLOR_LABELS,
+  SHAPE_LABELS,
+  goalPhrase,
+} from "@/lib/labels";
 import { speechFile, speechSlug } from "@/lib/speech-files";
 
 const GOALS = [
-  "Ghép các hình giống nhau",
-  "Tìm hai thẻ giống nhau",
-  ...Object.values(COLOR_LABELS).map((color) => `Tìm ${color}`),
-  ...Object.values(ANIMAL_LABELS).map((animal) => `Tìm tất cả ${animal}`),
-  "Chạm vào hình lớn nhất",
-  "Chạm vào hình nhỏ nhất",
+  "Những hình giống nhau ở đâu?",
+  "Hai thẻ giống nhau ở đâu?",
+  ...Object.values(COLOR_LABELS).map(goalPhrase),
+  ...Object.values(ANIMAL_LABELS).map(goalPhrase),
+  goalPhrase("hình lớn nhất"),
+  goalPhrase("hình nhỏ nhất"),
 ];
 
 const PHRASES = [
@@ -22,10 +27,10 @@ const PHRASES = [
 
 describe("speechSlug", () => {
   it("strips diacritics and maps đ to d", () => {
-    expect(speechSlug("Tìm màu xanh lá")).toBe("tim-mau-xanh-la");
+    expect(speechSlug("Màu xanh lá ở đâu?")).toBe("mau-xanh-la-o-dau");
     expect(speechSlug("con ếch")).toBe("con-ech");
-    expect(speechSlug("Ghép các hình giống nhau")).toBe(
-      "ghep-cac-hinh-giong-nhau",
+    expect(speechSlug("Những hình giống nhau ở đâu?")).toBe(
+      "nhung-hinh-giong-nhau-o-dau",
     );
   });
 });

@@ -1,4 +1,4 @@
-const CACHE_NAME = "playroom-v4";
+const CACHE_NAME = "playroom-v5";
 
 // Kept in sync with lib/games/registry.ts. Precaching every route (and the
 // hashed chunks each page references) lets the whole playroom run offline
@@ -36,16 +36,16 @@ const EXTRA_ASSETS = [
 // sync with the files in public/speech — the test in lib/speech-files.test.ts
 // fails if a spoken phrase has no clip.
 const SPEECH_CLIPS = [
-  "/speech/cham-vao-hinh-lon-nhat.mp3", "/speech/cham-vao-hinh-nho-nhat.mp3", "/speech/con-ca.mp3", "/speech/con-chim.mp3",
-  "/speech/con-cho.mp3", "/speech/con-ech.mp3", "/speech/con-meo.mp3", "/speech/con-tho.mp3",
-  "/speech/ghep-cac-hinh-giong-nhau.mp3", "/speech/hinh-chu-thap.mp3", "/speech/hinh-ngoi-sao.mp3", "/speech/hinh-tam-giac.mp3",
-  "/speech/hinh-thoi.mp3", "/speech/hinh-trai-tim.mp3", "/speech/hinh-tron-rong.mp3", "/speech/hinh-tron.mp3",
-  "/speech/hinh-vuong.mp3", "/speech/mau-cam.mp3", "/speech/mau-do.mp3", "/speech/mau-hong.mp3",
-  "/speech/mau-nau.mp3", "/speech/mau-tim.mp3", "/speech/mau-vang.mp3", "/speech/mau-xanh-duong.mp3",
-  "/speech/mau-xanh-la.mp3", "/speech/tim-hai-the-giong-nhau.mp3", "/speech/tim-mau-cam.mp3", "/speech/tim-mau-do.mp3",
-  "/speech/tim-mau-hong.mp3", "/speech/tim-mau-nau.mp3", "/speech/tim-mau-tim.mp3", "/speech/tim-mau-vang.mp3",
-  "/speech/tim-mau-xanh-duong.mp3", "/speech/tim-mau-xanh-la.mp3", "/speech/tim-tat-ca-con-ca.mp3", "/speech/tim-tat-ca-con-chim.mp3",
-  "/speech/tim-tat-ca-con-cho.mp3", "/speech/tim-tat-ca-con-ech.mp3", "/speech/tim-tat-ca-con-meo.mp3", "/speech/tim-tat-ca-con-tho.mp3",
+  "/speech/con-ca-o-dau.mp3", "/speech/con-ca.mp3", "/speech/con-chim-o-dau.mp3", "/speech/con-chim.mp3",
+  "/speech/con-cho-o-dau.mp3", "/speech/con-cho.mp3", "/speech/con-ech-o-dau.mp3", "/speech/con-ech.mp3",
+  "/speech/con-meo-o-dau.mp3", "/speech/con-meo.mp3", "/speech/con-tho-o-dau.mp3", "/speech/con-tho.mp3",
+  "/speech/hai-the-giong-nhau-o-dau.mp3", "/speech/hinh-chu-thap.mp3", "/speech/hinh-lon-nhat-o-dau.mp3", "/speech/hinh-ngoi-sao.mp3",
+  "/speech/hinh-nho-nhat-o-dau.mp3", "/speech/hinh-tam-giac.mp3", "/speech/hinh-thoi.mp3", "/speech/hinh-trai-tim.mp3",
+  "/speech/hinh-tron-rong.mp3", "/speech/hinh-tron.mp3", "/speech/hinh-vuong.mp3", "/speech/mau-cam-o-dau.mp3",
+  "/speech/mau-cam.mp3", "/speech/mau-do-o-dau.mp3", "/speech/mau-do.mp3", "/speech/mau-hong-o-dau.mp3",
+  "/speech/mau-hong.mp3", "/speech/mau-nau-o-dau.mp3", "/speech/mau-nau.mp3", "/speech/mau-tim-o-dau.mp3",
+  "/speech/mau-tim.mp3", "/speech/mau-vang-o-dau.mp3", "/speech/mau-vang.mp3", "/speech/mau-xanh-duong-o-dau.mp3",
+  "/speech/mau-xanh-duong.mp3", "/speech/mau-xanh-la-o-dau.mp3", "/speech/mau-xanh-la.mp3", "/speech/nhung-hinh-giong-nhau-o-dau.mp3",
 ];
 
 async function precacheRoute(cache, route) {

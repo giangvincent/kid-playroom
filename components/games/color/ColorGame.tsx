@@ -9,8 +9,9 @@ import {
   type ColorOption,
 } from "@/lib/logic/color";
 import type { GameProps } from "@/lib/games/types";
+import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
-import { colorLabel } from "@/lib/labels";
+import { colorLabel, goalPhrase } from "@/lib/labels";
 import { speak } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
@@ -25,12 +26,10 @@ export function ColorGame({ onWin }: GameProps) {
   );
   const [roundIndex, setRoundIndex] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
+  const goal = goalPhrase(colorLabel(round.target.name));
+  const press = useTap(choose);
 
-  useSpeakGoal(
-    `Tìm ${colorLabel(round.target.name)}`,
-    config.soundEnabled,
-    roundIndex,
-  );
+  useSpeakGoal(goal, config.soundEnabled, roundIndex);
 
   function choose(option: ColorOption) {
     speak(colorLabel(option.name), config.soundEnabled);
@@ -51,11 +50,11 @@ export function ColorGame({ onWin }: GameProps) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex touch-none flex-col items-center gap-8">
       <div className="flex flex-col items-center gap-3">
-        <span className="text-xl font-bold">Tìm màu này</span>
+        <span className="text-2xl font-bold">{goal}</span>
         <span
-          className="h-32 w-32 border-4 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
+          className="h-[min(30vmin,18rem)] w-[min(30vmin,18rem)] border-4 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
           style={{ backgroundColor: round.target.hex }}
         />
       </div>
@@ -65,10 +64,10 @@ export function ColorGame({ onWin }: GameProps) {
             key={option.name}
             type="button"
             aria-label={colorLabel(option.name)}
-            onClick={() => choose(option)}
+            {...press(option)}
             style={{ backgroundColor: option.hex }}
             className={cx(
-              "h-28 w-28 border-4 border-ink",
+              "h-[min(24vmin,15rem)] w-[min(24vmin,15rem)] border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               wrong === option.name && "opacity-40",
             )}

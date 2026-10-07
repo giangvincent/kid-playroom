@@ -57,6 +57,12 @@
     background-color: var(--color-paper);
   }
 
+  /* Game tiles scale with the viewport (vmin bounds width and height). */
+  .board-tile {
+    width: min(24vmin, 16rem);
+    height: min(24vmin, 16rem);
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

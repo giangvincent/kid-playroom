@@ -10,6 +10,7 @@ import {
   type MatchTile,
 } from "@/lib/logic/matching";
 import type { GameProps } from "@/lib/games/types";
+import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { shapeLabel } from "@/lib/labels";
 import { SHAPE_NAMES } from "@/lib/assets";
@@ -18,7 +19,7 @@ import { useConfig } from "@/lib/store";
 
 const PAIR_COUNT = 4;
 const WRONG_FEEDBACK_MS = 600;
-const GOAL = "Ghép các hình giống nhau";
+const GOAL = "Những hình giống nhau ở đâu?";
 
 export function MatchingGame({ onWin }: GameProps) {
   const { config } = useConfig();
@@ -28,6 +29,7 @@ export function MatchingGame({ onWin }: GameProps) {
   const [firstId, setFirstId] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [wrongIds, setWrongIds] = useState<string[]>([]);
+  const press = useTap(handleTap);
 
   useSpeakGoal(GOAL, config.soundEnabled);
 
@@ -72,7 +74,7 @@ export function MatchingGame({ onWin }: GameProps) {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid touch-none grid-cols-4 gap-3">
       {board.map((tile) => {
         const isMatched = matched.has(tile.id);
         const isWrong = wrongIds.includes(tile.id);
@@ -83,15 +85,15 @@ export function MatchingGame({ onWin }: GameProps) {
             type="button"
             disabled={isMatched}
             aria-label={shapeLabel(tile.sprite)}
-            onClick={() => handleTap(tile)}
-            className={cx(
-              "flex h-24 w-24 items-center justify-center border-4 border-ink",
+              {...press(tile)}
+              className={cx(
+                "board-tile flex items-center justify-center border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               isWrong ? "bg-danger" : isSelected ? "bg-accent" : "bg-paper",
               isMatched && "opacity-25",
             )}
           >
-            <GameImage name={tile.sprite} size={72} />
+              <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />
           </button>
         );
       })}

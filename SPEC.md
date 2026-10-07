@@ -436,3 +436,125 @@ for unknown phrases. public/sw.js precaches the new asset and speech files.
    split? (All-photo is not meaningful for abstract shapes.)
 2. vi-VN-HoaiMyNeural female voice OK, or try vi-VN-NamMinhNeural (male) for
    comparison first?
+
+---
+
+## 15. Sprint 4 — Bigger Boards, Playful Prompts, Reliable Touch
+
+Requested by the parent after first real-device playtesting. Three upgrades
+to the shipped Sprint 3 app.
+
+### 15.1 Objective
+
+1. **Bigger images on wide screens.** Animal/Matching/Memory tiles (currently
+   fixed 96 px), Color swatches (112/128 px), and Size shapes (56–152 px) look
+   small on a wide/landscape screen. Every board must scale with the available
+   **width and height** of the viewport, not a fixed pixel constant.
+2. **Playful goal prompts.** Round goals are imperative commands ("Tìm tất cả
+   con mèo", "Tìm màu vàng"). A young child responds better to an excited
+   question: "Màu vàng ở đâu?". Re-record the goal clips in the same neural
+   voice with question phrasing. Per-tap labels ("màu vàng", "con mèo") are
+   already name-like and stay unchanged.
+3. **Multi-touch bug.** When the child rests one hand on the screen and then
+   taps a shape with the other hand, the tap is ignored. Root cause: game
+   tiles rely on the derived `click` event, and WebKit fires `click` only for
+   the **primary** touch of a multi-touch sequence (and panning/palm movement
+   can cancel the tap on other browsers). Tiles must respond to
+   `pointerdown`, which fires for every pointer, and boards must opt out of
+   browser gesture handling (`touch-action: none`).
+
+### 15.2 Assumptions (confirm or correct)
+
+1. Goal phrasings (Vietnamese, all ending "ở đâu?"):
+   - Matching: "Những hình giống nhau ở đâu?"
+   - Memory: "Hai thẻ giống nhau ở đâu?"
+   - Color: "Màu vàng ở đâu?" (one per colour label)
+   - Animal: "Con mèo ở đâu?" (one per animal label)
+   - Size: "Hình lớn nhất ở đâu?" / "Hình nhỏ nhất ở đâu?"
+2. Obsolete goal clips (18 files: `tim-tat-ca-*`, `tim-mau-*`, `ghep-*`,
+   `tim-hai-the-*`, `cham-*`) are deleted once no longer referenced.
+3. Palm rejection: a touch pointer with contact area (width × height) above a
+   generous threshold is treated as a resting palm and ignored by tile taps.
+   ponytail: naive heuristic; revisit only if a deliberate tap is ever
+   falsely rejected.
+4. Speech generation needs the network (edge-tts CLI), as in Sprint 3; the
+   generated MP3s are committed so runtime stays offline.
+
+### 15.3 Success Criteria (testable)
+
+- On a wide landscape screen (e.g. 1920×1080), Animal/Matching/Memory tiles,
+  Color swatches, and Size shapes are roughly twice their current size, fill
+  the space without scrolling, and never drop below the 64 px tap-target rule
+  on a small phone.
+- Size game: the four shapes stay clearly ordered by size at any viewport
+  (relative steps, viewport-derived pixel size).
+- With Âm thanh ON: opening each game speaks the new question phrasing from a
+  committed clip; `speech-files.test.ts` covers every new goal; no unused
+  goal clips remain under `public/speech/`.
+- With Âm thanh OFF: no audio (unchanged).
+- With one finger/palm already resting on the screen, a second-finger tap on
+  a tile registers on first contact (verified on a real iPad/Android).
+- Keyboard activation still works (Enter/Space on a tile).
+- `npm run typecheck`, `lint`, `test`, `build` all pass.
+
+### 15.4 Design
+
+**Board sizing (CSS, no JS measuring).** A few viewport-based custom
+properties in `globals.css` (`vmin` considers the smaller of width/height,
+so both dimensions bound the size), e.g. a tile size of
+`min(24vmin, 16rem)`, a swatch size, and a size-game base unit. The three
+grid games share one tile class; Color and Size get their own values.
+`GameImage` keeps its `size` prop for intrinsic dimensions and gains a
+className that overrides the rendered size via CSS.
+
+**Size game steps.** `SIZE_STEPS` changes from pixel values to relative
+weights (1–4); the component maps weight → `calc(weight × base)` so the
+ordering logic is unchanged and display scales with the viewport. Existing
+size-logic tests keep passing (they only compare items).
+
+**Tap handling.** One small hook `lib/hooks/useTap.ts` returns
+`onPointerDown` (runs the action immediately; ignores touch pointers whose
+contact area suggests a palm) plus `onClick` guarded by a ~500 ms window so
+the browser's derived click never double-fires the action, plus
+`onKeyDown` for Enter/Space. All five games use it on their tile buttons;
+boards get `touch-action: none`. Parent-facing buttons (header, grid) stay
+click-based.
+
+**Voice clips.** Goal strings change in the five game components,
+`lib/speech-files.test.ts` (GOALS list), and `scripts/gen-speech.mjs`
+(PHRASES list). Generate the 18 new clips with the existing generator, delete
+the 18 obsolete ones. `speechFile()` needs no change — it is purely
+text → slug.
+
+### 15.5 Files
+
+- New: `lib/hooks/useTap.ts`, `lib/hooks/useTap.test.ts` (palm-threshold
+  predicate + guard window as pure logic), 18 `public/speech/*.mp3`.
+- Changed: `app/globals.css`, the five game components, `lib/logic/size.ts`
+  (px steps → weights) and its test, `lib/speech-files.test.ts`,
+  `scripts/gen-speech.mjs`.
+- Deleted: 18 obsolete `public/speech/*.mp3`.
+- Unchanged: `DrawingGame` (already pointer-event based), speech runtime,
+  assets, PWA.
+
+### 15.6 Testing & Verification
+
+- Vitest: palm/guard predicate tests, size-weights test update,
+  speech-file mapping over the new GOALS (18 clips must exist).
+- Manual on device: palm-on-screen + second-finger tap lands on first touch;
+  boards fill wide screens without scrolling; offline run still plays all
+  clips; standard typecheck/lint/test/build gate.
+
+### 15.7 Boundaries (delta)
+
+- **Always:** keep tap targets ≥ 64 px; keep the 500 ms dedup guard so a
+  derived click can never double-apply an answer.
+- **Ask first:** changing the voice or voice style beyond question phrasing.
+- **Never:** fetch images or audio at runtime; reintroduce fixed-pixel board
+  sizing.
+
+### 15.8 Open Questions
+
+1. Are the five goal phrasings in 15.2 the wording you want, or do you have
+   preferred phrasing for Matching/Memory/Size? (Colour/Animal follow your
+   "X ở đâu?" example directly.)

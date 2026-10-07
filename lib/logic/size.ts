@@ -15,7 +15,8 @@ export type SizeRound = {
   correctId: string;
 };
 
-export const SIZE_STEPS = [56, 88, 120, 152] as const;
+/** Relative size weights; the game maps each to a viewport-based pixel size. */
+export const SIZE_STEPS = [1, 2, 3, 4] as const;
 
 export function buildSizeRound(
   pool: readonly AssetName[],

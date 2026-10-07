@@ -276,3 +276,61 @@ pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and
   iPad/Android, real Fullscreen API on tablet Safari/Chrome, airplane-mode
   offline run with the new SW cache (v3), and a visual pass of the fixed
   drawing layout — headless launch was too flaky to re-measure after the fix.
+
+---
+
+# Sprint 4
+
+- [x] Task P1: Reliable tile input (useTap)
+  - Acceptance: lib/hooks/useTap.ts runs the action on pointerup for every
+    pointer (a second finger registers while the first rests on screen),
+    ignores palm-sized contact areas, drops the derived click so nothing
+    double-fires, and passes keyboard clicks; isPalm/isFreshClick are pure
+    and tested.
+  - Verify: npm run test
+  - Files: lib/hooks/useTap.ts, lib/hooks/useTap.test.ts
+- [x] Task P2: Responsive boards
+  - Acceptance: .board-tile (min(24vmin, 16rem)) on Animal/Matching/Memory
+    tiles; Color target/options and Size steps clamp to the viewport so both
+    width and height bound them; SIZE_STEPS are relative weights; tap targets
+    stay >= 64 px with no board overflow; touch-none on every game root.
+  - Verify: npm run typecheck && npm run test && visual smoke
+  - Files: app/globals.css, 5 game components, lib/logic/size.ts
+- [x] Task P3: Playful goal phrasing
+  - Acceptance: labels.goalPhrase builds "X ở đâu?"; the five games use it
+    (Matching "Những hình giống nhau ở đâu?", Memory "Hai thẻ giống nhau ở
+    đâu?"); speech-files.test.ts and scripts/gen-speech.mjs list the 18 new
+    goals.
+  - Verify: npm run test (slug mapping) + typecheck
+  - Files: lib/labels.ts, lib/labels.test.ts, 5 game components,
+    lib/speech-files.test.ts, scripts/gen-speech.mjs
+- [x] Task P4: Voice clips + SW list
+  - Acceptance: 18 new clips generated (vi-VN-HoaiMyNeural), 18 obsolete
+    deleted, public/sw.js SPEECH_CLIPS updated, cache name bumped.
+  - Verify: npm run test (clip existence) + ls public/speech
+  - Files: public/speech/*, public/sw.js
+- [x] Task P5: Verification
+  - Acceptance: typecheck/lint/test/build pass; headless browser smoke: each
+    game page renders, a tile tap through pointer events answers correctly,
+    boards fill the wide viewport without scrolling.
+  - Verify: npm run typecheck && npm run lint && npm run test && npm run build
+  - Files: none
+- [x] Task P6: Commit + push main
+  - Acceptance: one commit with all Sprint 4 changes, pushed to origin main
+    (explicitly requested by the parent).
+  - Verify: git log -1 && git push output
+  - Files: none
+
+## Sprint 4 verification log (2026-10-07)
+
+- Gates: typecheck / lint / test (47, +5 new) / build all pass clean.
+- Audio: all 18 new "ở đâu?" clips generated with vi-VN-HoaiMyNeural, 18
+  obsolete goal clips deleted, public/speech holds exactly the 40 clips the
+  speech-files test expects; public/sw.js list parity checked (40/40, no
+  missing/extra) and cache bumped to v5.
+- Production server smoke: all six /play routes and a new goal clip return
+  200; every page prerendered in the build.
+- NOT yet verified (needs the parent's devices): the palm-rest + second-finger
+  tap on a real touchscreen (WebKit multi-touch is the bug being fixed and has
+  no desktop simulation), board proportions on the real wide tablet, and an
+  airplane-mode offline run with the new SW cache.

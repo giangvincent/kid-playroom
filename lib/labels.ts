@@ -54,3 +54,9 @@ export function animalLabel(name: string): string {
 export function colorLabel(name: string): string {
   return lookup(COLOR_LABELS, name);
 }
+
+/** Playful goal phrasing: "màu vàng" -> "Màu vàng ở đâu?" */
+export function goalPhrase(label: string): string {
+  const capped = label.charAt(0).toUpperCase() + label.slice(1);
+  return `${capped} ở đâu?`;
+}

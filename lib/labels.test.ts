@@ -7,6 +7,7 @@ import {
   SHAPE_LABELS,
   animalLabel,
   colorLabel,
+  goalPhrase,
   shapeLabel,
 } from "./labels";
 
@@ -44,5 +45,13 @@ describe("label lookups", () => {
     expect(shapeLabel("nope")).toBe("nope");
     expect(animalLabel("nope")).toBe("nope");
     expect(colorLabel("nope")).toBe("nope");
+  });
+});
+
+describe("goalPhrase", () => {
+  it("builds the playful question form", () => {
+    expect(goalPhrase("màu vàng")).toBe("Màu vàng ở đâu?");
+    expect(goalPhrase("con mèo")).toBe("Con mèo ở đâu?");
+    expect(goalPhrase("hình lớn nhất")).toBe("Hình lớn nhất ở đâu?");
   });
 });

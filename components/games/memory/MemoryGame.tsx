@@ -9,6 +9,7 @@ import {
   type MatchTile,
 } from "@/lib/logic/matching";
 import type { GameProps } from "@/lib/games/types";
+import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { animalLabel } from "@/lib/labels";
 import { ANIMAL_NAMES } from "@/lib/assets";
@@ -17,7 +18,7 @@ import { useConfig } from "@/lib/store";
 
 const PAIR_COUNT = 6;
 const FLIP_BACK_MS = 800;
-const GOAL = "Tìm hai thẻ giống nhau";
+const GOAL = "Hai thẻ giống nhau ở đâu?";
 
 export function MemoryGame({ onWin }: GameProps) {
   const { config } = useConfig();
@@ -27,6 +28,7 @@ export function MemoryGame({ onWin }: GameProps) {
   const [flipped, setFlipped] = useState<string[]>([]);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
+  const press = useTap(flip);
 
   useSpeakGoal(GOAL, config.soundEnabled);
 
@@ -69,7 +71,7 @@ export function MemoryGame({ onWin }: GameProps) {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid touch-none grid-cols-4 gap-4">
       {deck.map((tile) => {
         const isMatched = matched.has(tile.id);
         const faceUp = isMatched || flipped.includes(tile.id);
@@ -77,17 +79,17 @@ export function MemoryGame({ onWin }: GameProps) {
           <button
             key={tile.id}
             type="button"
-            onClick={() => flip(tile)}
+            {...press(tile)}
             aria-label={faceUp ? animalLabel(tile.sprite) : "Thẻ"}
             className={cx(
-              "flex h-24 w-24 items-center justify-center border-4 border-ink",
+              "board-tile flex items-center justify-center border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               faceUp ? "bg-paper" : "bg-purple",
               isMatched && "opacity-40",
             )}
           >
             {faceUp ? (
-              <GameImage name={tile.sprite} size={72} />
+              <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />
             ) : (
               <span className="text-3xl font-bold text-paper">?</span>
             )}

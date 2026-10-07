@@ -42,13 +42,17 @@ const ANIMALS = ["con mèo", "con chó", "con cá", "con chim", "con ếch", "co
 
 const PHRASES = [
   ...LABELS,
-  "Ghép các hình giống nhau",
-  "Tìm hai thẻ giống nhau",
-  ...COLORS.map((color) => `Tìm ${color}`),
-  ...ANIMALS.map((animal) => `Tìm tất cả ${animal}`),
-  "Chạm vào hình lớn nhất",
-  "Chạm vào hình nhỏ nhất",
+  "Những hình giống nhau ở đâu?",
+  "Hai thẻ giống nhau ở đâu?",
+  ...COLORS.map(goal),
+  ...ANIMALS.map(goal),
+  goal("hình lớn nhất"),
+  goal("hình nhỏ nhất"),
 ];
+
+function goal(phrase) {
+  return `${phrase.charAt(0).toUpperCase()}${phrase.slice(1)} ở đâu?`;
+}
 
 function slug(text) {
   return text
