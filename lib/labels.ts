@@ -1,5 +1,5 @@
 import type { ColorName } from "@/lib/logic/color";
-import { ANIMAL_NAMES, SHAPE_NAMES } from "@/lib/pixel/sprites";
+import { ANIMAL_NAMES, SHAPE_NAMES } from "@/lib/assets";
 
 type ShapeName = (typeof SHAPE_NAMES)[number];
 type AnimalName = (typeof ANIMAL_NAMES)[number];

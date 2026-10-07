@@ -220,3 +220,59 @@ All 12 tasks implemented and verified in-browser (Chromium):
 
 **Still manual:** `docs/DEVICE_SETUP.md` must be followed on a real tablet — Android screen
 pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and audible.
+
+---
+
+# Sprint 3
+
+- [x] Task S1: Pre-recorded Vietnamese voice
+  - Acceptance: ~40 MP3s (22 labels + 18 goals, vi-VN-HoaiMyNeural) in
+    public/speech/; lib/speech-files.ts maps every phrase (slug, null
+    otherwise) with Vitest coverage; lib/speech.ts plays files (speak replaces,
+    announce chains), falls back to speechSynthesis for unknown phrases; games
+    and useSpeakGoal untouched; sw.js precaches /speech/*.
+  - Verify: npm run test; npm run typecheck; manual: tap labels + open each
+    game with sound on, audio plays; airplane-mode check after one online load.
+  - Files: public/speech/, CLI command documented in docs/ASSETS.md,
+    lib/speech-files.ts, lib/speech-files.test.ts, lib/speech.ts, public/sw.js.
+- [x] Task S2: Real downloaded images
+  - Acceptance: public/assets/ holds 6 animal photos (Wikimedia Commons) and
+    8 shape SVGs + 5 game-icon SVGs (Twemoji); docs/ASSETS.md lists source URL
+    + licence per file; lib/assets.ts maps name -> file and exports
+    SHAPE_NAMES/ANIMAL_NAMES; PixelSprite -> GameImage at all 9 call sites;
+    lib/pixel/ deleted; sw.js precaches /assets/*.
+  - Verify: npm run typecheck && npm run lint && npm run test &&
+    npm run build; rg confirms no PixelSprite/sprites.ts imports; visual pass
+    over all six games + grid + toggles.
+  - Files: public/assets/, docs/ASSETS.md, lib/assets.ts,
+    components/ui/GameImage.tsx, 9 import sites, lib/pixel/ (delete),
+    public/sw.js.
+- [x] Task S3: Fullscreen drawing board
+  - Acceptance: canvas bitmap matches element size via ResizeObserver; board
+    fills shell width and height windowed and fullscreen; strokes survive
+    resize; pointer mapping uses canvas.width/height (no 720/480 constants).
+  - Verify: npm run typecheck; manual windowed + fullscreen draw on desktop
+    and tablet.
+  - Files: components/games/drawing/DrawingGame.tsx.
+- [x] Task S4: Sprint verification
+  - Acceptance: all four gates pass clean; git status shows only intended
+    changes; offline airplane-mode run plays all games with images + voice.
+  - Verify: npm run typecheck && npm run lint && npm run test &&
+    npm run build; on-device pass.
+  - Files: none (verification only).
+
+## Sprint 3 verification log (2026-10-07)
+
+- Gates: typecheck / lint / test (42) / build all pass clean.
+- Browser smoke (desktop headless): grid + matching render real images (0
+  broken, 0 console errors, 0 404s); speech clips requested on game open and
+  tile tap (/speech/*.mp3 200s); canvas filled the shell; strokes survived a
+  viewport resize 1280x800 -> 1920x1080 (painted pixel count unchanged,
+  bitmap 1240x620 -> 1880x940).
+- Found + fixed during smoke: canvas bitmap height fed the flex min-content
+  and pushed the colour bar off-screen on tall screens; canvas is now
+  absolutely positioned inside a relative flex holder (no intrinsic feedback).
+- NOT yet verified (needs the parent's devices): audible voice quality on
+  iPad/Android, real Fullscreen API on tablet Safari/Chrome, airplane-mode
+  offline run with the new SW cache (v3), and a visual pass of the fixed
+  drawing layout — headless launch was too flaky to re-measure after the fix.

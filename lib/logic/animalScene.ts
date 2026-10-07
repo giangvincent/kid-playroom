@@ -1,13 +1,13 @@
-import type { SpriteName } from "@/lib/pixel/sprites";
+import type { AssetName } from "@/lib/assets";
 import { shuffle } from "./shuffle";
 
 export type SceneTile = {
   id: string;
-  sprite: SpriteName;
+  sprite: AssetName;
 };
 
 export type AnimalScene = {
-  target: SpriteName;
+  target: AssetName;
   tiles: SceneTile[];
   targetCount: number;
 };
@@ -17,14 +17,14 @@ const TARGET_COUNT = 3;
 const TILE_COUNT = 12;
 
 export function buildAnimalScene(
-  pool: readonly SpriteName[],
+  pool: readonly AssetName[],
   rng: () => number = Math.random,
 ): AnimalScene {
   const kinds = shuffle(pool, rng).slice(0, KINDS);
   const target = kinds[0];
   const distractors = kinds.slice(1);
 
-  const sprites: SpriteName[] = Array.from(
+  const sprites: AssetName[] = Array.from(
     { length: TARGET_COUNT },
     () => target,
   );
@@ -43,7 +43,7 @@ export function buildAnimalScene(
 
 export function countTargets(
   tiles: readonly SceneTile[],
-  target: SpriteName,
+  target: AssetName,
 ): number {
   return tiles.filter((tile) => tile.sprite === target).length;
 }

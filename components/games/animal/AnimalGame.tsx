@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { cx } from "@/lib/cx";
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import { buildAnimalScene, type SceneTile } from "@/lib/logic/animalScene";
 import type { GameProps } from "@/lib/games/types";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { animalLabel } from "@/lib/labels";
-import { ANIMAL_NAMES } from "@/lib/pixel/sprites";
+import { ANIMAL_NAMES } from "@/lib/assets";
 import { speak } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
@@ -49,7 +49,7 @@ export function AnimalGame({ onWin }: GameProps) {
     <div className="flex flex-col items-center gap-6">
       <div className="flex items-center gap-3">
         <span className="text-xl font-bold">Tìm tất cả</span>
-        <PixelSprite name={scene.target} size={56} />
+        <GameImage name={scene.target} size={56} />
       </div>
       <div className="grid grid-cols-4 gap-4">
         {scene.tiles.map((tile) => {
@@ -69,7 +69,7 @@ export function AnimalGame({ onWin }: GameProps) {
                 isFound && "opacity-25",
               )}
             >
-              <PixelSprite name={tile.sprite} size={72} />
+              <GameImage name={tile.sprite} size={72} />
             </button>
           );
         })}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cx } from "@/lib/cx";
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import {
   buildSizeRound,
   isCorrectChoice,
@@ -10,7 +10,7 @@ import {
 } from "@/lib/logic/size";
 import type { GameProps } from "@/lib/games/types";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
-import { SHAPE_NAMES } from "@/lib/pixel/sprites";
+import { SHAPE_NAMES } from "@/lib/assets";
 import { useConfig } from "@/lib/store";
 
 const ROUND_MODES = ["biggest", "smallest", "biggest"] as const satisfies
@@ -63,7 +63,7 @@ export function SizeGame({ onWin }: GameProps) {
               wrongId === item.id ? "bg-danger" : "bg-paper",
             )}
           >
-            <PixelSprite name={round.sprite} size={item.size} />
+            <GameImage name={round.sprite} size={item.size} />
           </button>
         ))}
       </div>

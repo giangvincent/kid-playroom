@@ -15,8 +15,6 @@ const COLORS = [
 ];
 const BACKGROUND = COLORS[COLORS.length - 1].hex;
 const BRUSH = 16;
-const WIDTH = 720;
-const HEIGHT = 480;
 
 type Point = { x: number; y: number };
 
@@ -28,13 +26,48 @@ export function DrawingGame() {
   const [color, setColor] = useState(COLORS[0].hex);
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d") ?? null;
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
+    const ctx = canvas.getContext("2d");
     if (!ctx) {
       return;
     }
-    ctx.fillStyle = BACKGROUND;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
     ctxRef.current = ctx;
+
+    const repaint = (snapshot: HTMLCanvasElement | null) => {
+      ctx.fillStyle = BACKGROUND;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (snapshot) {
+        ctx.drawImage(snapshot, 0, 0);
+      }
+    };
+
+    const resize = () => {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (width === 0 || height === 0) {
+        return;
+      }
+      if (canvas.width === width && canvas.height === height) {
+        return;
+      }
+      // Keep the current drawing alive across resizes (e.g. entering
+      // fullscreen must not wipe the board).
+      const snapshot = document.createElement("canvas");
+      snapshot.width = canvas.width;
+      snapshot.height = canvas.height;
+      snapshot.getContext("2d")?.drawImage(canvas, 0, 0);
+      canvas.width = width;
+      canvas.height = height;
+      repaint(snapshot);
+    };
+
+    resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(canvas);
+    return () => observer.disconnect();
   }, []);
 
   function toPoint(event: PointerEvent<HTMLCanvasElement>): Point {
@@ -44,8 +77,8 @@ export function DrawingGame() {
     }
     const rect = canvas.getBoundingClientRect();
     return {
-      x: ((event.clientX - rect.left) / rect.width) * WIDTH,
-      y: ((event.clientY - rect.top) / rect.height) * HEIGHT,
+      x: ((event.clientX - rect.left) / rect.width) * canvas.width,
+      y: ((event.clientY - rect.top) / rect.height) * canvas.height,
     };
   }
 
@@ -102,23 +135,22 @@ export function DrawingGame() {
       return;
     }
     ctx.fillStyle = BACKGROUND;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
   return (
-    <div className="flex w-full max-w-3xl flex-col items-center gap-4">
+    <div className="flex w-full flex-1 self-stretch flex-col items-center gap-4">
+      <div className="relative min-h-0 w-full flex-1">
       <canvas
         ref={canvasRef}
-        width={WIDTH}
-        height={HEIGHT}
         onPointerDown={handleDown}
         onPointerMove={handleMove}
         onPointerUp={handleUp}
         onPointerLeave={handleUp}
         onPointerCancel={handleUp}
-        style={{ aspectRatio: `${WIDTH} / ${HEIGHT}` }}
-        className="w-full touch-none border-4 border-ink shadow-[6px_6px_0_0_var(--color-ink)]"
+        className="absolute inset-0 h-full w-full touch-none border-4 border-ink shadow-[6px_6px_0_0_var(--color-ink)]"
       />
+      </div>
       <div className="flex flex-wrap items-center justify-center gap-3">
         {COLORS.map((option) => (
           <button

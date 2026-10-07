@@ -1,13 +1,13 @@
-import type { SpriteName } from "@/lib/pixel/sprites";
+import type { AssetName } from "@/lib/assets";
 import { shuffle } from "./shuffle";
 
 export type MatchTile = {
   id: string;
-  sprite: SpriteName;
+  sprite: AssetName;
 };
 
 export function buildMatchingBoard(
-  pool: readonly SpriteName[],
+  pool: readonly AssetName[],
   pairCount: number,
   rng: () => number = Math.random,
 ): MatchTile[] {

@@ -328,3 +328,111 @@ remain out of scope.
 ### 13.8 Open Questions
 
 None — all four decisions were confirmed before this spec.
+
+---
+
+## 14. Sprint 3 — Real-World Imagery, Fullscreen Drawing Board, Human Voice
+
+Requested by the parent. Three upgrades to the shipped Sprint 2 app.
+
+### 14.1 Objective
+
+1. **Real-world imagery.** Replace the hand-coded pixel sprites with real
+   images downloaded from the internet (not AI-generated): real animal photos
+   and clean, colourful shape/icon SVGs a 1.5–5 year old recognises from real
+   life.
+2. **Fullscreen drawing board.** The drawing canvas is a fixed 720×480 bitmap
+   capped at max-w-3xl; in fullscreen it stays a small rectangle. The board
+   must fill the available screen (width and height), windowed and fullscreen.
+3. **Human-sounding Vietnamese voice.** Device speechSynthesis picks whatever
+   vi-VN voice the device ships — often a robotic fallback, sometimes none, so
+   words get mangled. Spoken words must come from pre-recorded neural TTS
+   audio, female Vietnamese voice, committed to the repo (the app stays
+   offline-first).
+
+### 14.2 Assumptions (confirm or correct)
+
+1. **Animal photos:** downloaded from Wikimedia Commons (real photographs,
+   CC0 / CC BY / CC BY-SA, attributed in docs/ASSETS.md).
+2. **Shapes and game icons:** flat, child-friendly SVGs from Twemoji
+   (CC-BY 4.0) — abstract shapes have no meaningful "real photo", and Twemoji
+   SVGs are downloaded internet assets, not generated ones.
+3. **Voice:** Microsoft Edge neural voice vi-VN-HoaiMyNeural (female),
+   generated once with the edge-tts CLI; ~40 small MP3s committed under
+   public/speech/. This reverses the Sprint 2 rule "never ship recorded audio
+   assets": that rule assumed open-ended speech; the vocabulary is a closed
+   set of ~40 short phrases, so files win.
+4. PWA app icons (192/512) stay as they are (branding, not game content).
+5. speechSynthesis remains only as fallback for a phrase with no audio file
+   (preferring a female vi voice there too).
+
+### 14.3 Success Criteria (testable)
+
+- Every animal, shape, and game icon is a real downloaded asset under
+  public/assets/; no inline pixel grids and no AI-generated images remain in
+  games. docs/ASSETS.md lists every file with source URL and licence.
+- Drawing board fills the available width AND height of the shell in windowed
+  mode and fullscreen; existing strokes survive resize (entering fullscreen
+  does not wipe the drawing); no 720/480 constants left in the pointer
+  mapping.
+- With Âm thanh ON: every spoken label and goal plays the pre-recorded female
+  Vietnamese audio; a new spoken word cancels the previous one (no overlap,
+  no backlog); a round goal plays after the current clip finishes.
+- With Âm thanh OFF: no audio.
+- Offline: after one online visit, images and speech clips play with the
+  network off (SW precache covers public/assets/* and public/speech/*).
+- npm run typecheck, lint, test, build all pass.
+
+### 14.4 Design
+
+**Imagery.** One asset map lib/assets.ts: sprite name → /assets/… file, plus
+the SHAPE_NAMES / ANIMAL_NAMES lists moved out of lib/pixel/sprites.ts.
+PixelSprite becomes GameImage — same props, but a plain <img src> instead of
+the pixel-data-URL renderer. lib/pixel/ is deleted once nothing imports it.
+Tap targets, layout, and game logic are untouched.
+
+**Drawing board.** The canvas sizes its bitmap from its element: a
+ResizeObserver sets canvas.width/height to the element CSS size; on resize
+the old bitmap is snapshotted and redrawn onto the new one, so entering
+fullscreen preserves strokes. Pointer mapping uses canvas.width/height
+directly instead of constants.
+
+**Voice.** lib/speech.ts keeps its exported API (speak, announce,
+stopSpeaking, primeSpeech) so games and useSpeakGoal do not change.
+Internally: a pure speechFile(text) maps the ~40 known phrases to
+/speech/<slug>.mp3; the player replaces or chains a tiny queue (speak =
+replace, announce = append) and falls back to the old speechSynthesis path
+for unknown phrases. public/sw.js precaches the new asset and speech files.
+
+### 14.5 Files
+
+- New: lib/assets.ts, components/ui/GameImage.tsx, docs/ASSETS.md,
+  public/assets/* (~19 files), public/speech/*.mp3 (~40 files),
+  lib/speech-files.ts + test.
+- Changed: lib/speech.ts, components/games/drawing/DrawingGame.tsx,
+  public/sw.js, and the nine PixelSprite import sites (mechanical rename).
+- Deleted: lib/pixel/sprites.ts, lib/pixel/render.ts, lib/pixel/sprite.ts.
+
+### 14.6 Testing & Verification
+
+- Vitest: speechFile mapping covers every game phrase (each label, each goal,
+  unknown phrase → null).
+- Manual: fullscreen draw (strokes survive), audio on tablet, airplane-mode
+  offline run. Existing gates unchanged: typecheck / lint / test / build.
+
+### 14.7 Boundaries (delta)
+
+- **Always:** attribute every downloaded asset in docs/ASSETS.md; keep the
+  app offline-capable after committing assets.
+- **Ask first:** replacing PWA app icons; adding any npm dependency (none
+  expected — voice files are generated once with a CLI, not shipped as a
+  dependency).
+- **Never:** ship AI-generated images for game content; fetch images or audio
+  at runtime (all assets are committed).
+
+### 14.8 Open Questions
+
+1. Twemoji SVGs for shapes/icons + Commons photos for animals — acceptable
+   split? (All-photo is not meaningful for abstract shapes.)
+2. vi-VN-HoaiMyNeural female voice OK, or try vi-VN-NamMinhNeural (male) for
+   comparison first?

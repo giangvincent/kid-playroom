@@ -57,9 +57,6 @@
     background-color: var(--color-paper);
   }
 
-  .pixelated {
-    image-rendering: pixelated;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

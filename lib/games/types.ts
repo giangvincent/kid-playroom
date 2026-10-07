@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { SpriteName } from "@/lib/pixel/sprites";
+import type { AssetName } from "@/lib/assets";
 
 export type GameProps = {
   /** Called when a round is won; the shell celebrates and offers a replay. */
@@ -9,6 +9,6 @@ export type GameProps = {
 export type GameDefinition = {
   id: string;
   title: string;
-  icon: SpriteName;
+  icon: AssetName;
   Component: ComponentType<GameProps>;
 };

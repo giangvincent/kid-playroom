@@ -137,3 +137,46 @@ land any time; S8–S10 are independent of each other once S1/S2 exist.
 
 Per-game difficulty, drawing persistence, English/second language, analytics, backend,
 recorded audio assets, and any OS-level gesture blocking.
+
+---
+
+# Sprint 3 Plan — Real Imagery, Fullscreen Drawing, Human Voice
+
+Derived from SPEC.md section 14 (pending approval). Tasks live in tasks/todo.md.
+
+## Strategy
+
+Three independent seams, orderable by risk: the voice swap is the one users
+hear (do it first), the image swap is the widest mechanical diff (second, it
+is mostly rename), the drawing board is a small self-contained fix (last).
+Asset downloads need network escalation; everything else is local.
+
+## Components & Dependencies
+
+    S1 Voice files + player   (public/speech/*.mp3, lib/speech-files.ts, lib/speech.ts, sw.js)
+    S2 Real images            (public/assets/*, lib/assets.ts, GameImage, delete lib/pixel, sw.js)
+    S3 Drawing board fill     (DrawingGame.tsx only)
+    S4 Verification           (gates + offline + on-device)
+
+S1 and S2 are independent; S3 is independent. sw.js is touched by S1 and S2 —
+one combined precache list update per task, merged trivially.
+
+## Order & checkpoints
+
+1. S1 -> checkpoint: audio plays locally in dev, mapping test green.
+2. S2 -> checkpoint: gates pass, sprites fully gone (rg finds no importer).
+3. S3 -> checkpoint: manual windowed + fullscreen draw, strokes survive resize.
+4. S4 -> full gates + airplane-mode run + tablet audio/draw pass.
+
+## Risks
+
+- **Asset licensing** -> only CC0/CC BY/CC BY-SA sources; docs/ASSETS.md lists
+  every file + source URL. CC BY-SA files are acceptable for a private,
+  non-distributed app but are flagged in the doc.
+- **edge-tts availability** (network, endpoint drift) -> generate once, commit
+  MP3s; the documented CLI command in docs/ASSETS.md allows regeneration; if
+  edge-tts fails, fall back to any neural vi voice the parent prefers.
+- **Twemoji shapes too cartoonish for "real"** -> flagged as open question;
+  swap source later touches only the files, not code (name -> file map).
+- **Drawing resize loops** -> ResizeObserver writes only when the element size
+  actually differs from the bitmap; no state, no re-render.

@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { Celebration } from "./Celebration";
 import { FullscreenButton } from "./FullscreenButton";
 import { PixelButton } from "@/components/ui/PixelButton";
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import { playCue } from "@/lib/audio";
 import { getGame } from "@/lib/games/registry";
 import { useConfig } from "@/lib/store";
@@ -43,7 +43,7 @@ export function GameShell({ gameId }: { gameId: string }) {
         >
           Quay lại
         </PixelButton>
-        <PixelSprite name={icon} size={48} />
+        <GameImage name={icon} size={48} />
         <h1 className="truncate text-2xl font-bold">{title}</h1>
         <div className="ml-auto flex shrink-0 items-center gap-3">
           <FullscreenButton />

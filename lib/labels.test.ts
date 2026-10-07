@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { GAME_COLORS } from "@/lib/logic/color";
-import { ANIMAL_NAMES, SHAPE_NAMES } from "@/lib/pixel/sprites";
+import { ANIMAL_NAMES, SHAPE_NAMES } from "@/lib/assets";
 import {
   ANIMAL_LABELS,
   COLOR_LABELS,

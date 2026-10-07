@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cx } from "@/lib/cx";
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import {
   buildMatchingBoard,
   isMatch,
@@ -11,7 +11,7 @@ import {
 import type { GameProps } from "@/lib/games/types";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { animalLabel } from "@/lib/labels";
-import { ANIMAL_NAMES } from "@/lib/pixel/sprites";
+import { ANIMAL_NAMES } from "@/lib/assets";
 import { speak } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
@@ -87,7 +87,7 @@ export function MemoryGame({ onWin }: GameProps) {
             )}
           >
             {faceUp ? (
-              <PixelSprite name={tile.sprite} size={72} />
+              <GameImage name={tile.sprite} size={72} />
             ) : (
               <span className="text-3xl font-bold text-paper">?</span>
             )}

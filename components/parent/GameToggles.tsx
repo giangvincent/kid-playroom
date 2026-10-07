@@ -1,6 +1,6 @@
 "use client";
 
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import { cx } from "@/lib/cx";
 import { GAMES } from "@/lib/games/registry";
 import { useConfig } from "@/lib/store";
@@ -34,7 +34,7 @@ export function GameToggles() {
                   enabled ? "bg-paper" : "bg-mist",
                 )}
               >
-                <PixelSprite name={game.icon} size={40} />
+                <GameImage name={game.icon} size={40} />
                 <span className="text-lg font-bold">{game.title}</span>
                 <span className="ml-auto text-lg font-bold">
                   {enabled ? "Bật" : "Tắt"}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cx } from "@/lib/cx";
-import { PixelSprite } from "@/components/ui/PixelSprite";
+import { GameImage } from "@/components/ui/GameImage";
 import {
   buildMatchingBoard,
   isBoardCleared,
@@ -12,7 +12,7 @@ import {
 import type { GameProps } from "@/lib/games/types";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { shapeLabel } from "@/lib/labels";
-import { SHAPE_NAMES } from "@/lib/pixel/sprites";
+import { SHAPE_NAMES } from "@/lib/assets";
 import { speak } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
@@ -91,7 +91,7 @@ export function MatchingGame({ onWin }: GameProps) {
               isMatched && "opacity-25",
             )}
           >
-            <PixelSprite name={tile.sprite} size={72} />
+            <GameImage name={tile.sprite} size={72} />
           </button>
         );
       })}

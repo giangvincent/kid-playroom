@@ -1,4 +1,4 @@
-import type { SpriteName } from "@/lib/pixel/sprites";
+import type { AssetName } from "@/lib/assets";
 import { shuffle } from "./shuffle";
 
 export type SizeMode = "biggest" | "smallest";
@@ -9,7 +9,7 @@ export type SizeItem = {
 };
 
 export type SizeRound = {
-  sprite: SpriteName;
+  sprite: AssetName;
   mode: SizeMode;
   items: SizeItem[];
   correctId: string;
@@ -18,7 +18,7 @@ export type SizeRound = {
 export const SIZE_STEPS = [56, 88, 120, 152] as const;
 
 export function buildSizeRound(
-  pool: readonly SpriteName[],
+  pool: readonly AssetName[],
   mode: SizeMode,
   rng: () => number = Math.random,
 ): SizeRound {
