@@ -225,3 +225,38 @@ P2 and P3 touch the same five game files, so they are applied together.
   stays offline.
 - clamp steps colliding at viewport extremes -> ranges chosen so steps stay
   distinct and >= 64 px on a phone and clearly separated on desktop.
+
+---
+
+# Sprint 5 Plan — Rewards, Filled Tiles, Cleaner Screen
+
+Derived from SPEC.md section 16. Same conventions as earlier sprints.
+
+## Strategy
+
+One shared speech addition (per-clip ended callbacks + playPraise) covers all
+games; each game wires praise and advances inside the callback. Tile fill and
+the pop are class-level tweaks. Corner removal is deleting one component, its
+hook, and the padding reserved for it.
+
+    S5-P1 speech ended-callbacks + playPraise ──► all five games
+    S5-P2 game wiring + pop CSS ──► five components, globals.css
+    S5-P3 corner removal ──► play layout, GameShell padding, file deletions
+    S5-P4 praise clips (network) ──► gen-speech, sw.js, speech-files test
+    S5-P5 gates + on-device praise check
+
+## Verification Checkpoints
+
+- CP1 (after S5-P2): typecheck + lint green; all 43 phrases map to slugs
+  (test fails until the three clips exist).
+- CP2 (after S5-P4): speech-files test finds all 43 clips; sw.js lists 43.
+- CP3 (after S5-P5): typecheck + lint + test + build pass; manual browser
+  smoke of praise + pacing.
+
+## Risks
+
+- A praise gate can strand if a later tap replaces the clip mid-play (e.g.
+  rapid wrong taps in Animal) -> 5 s watchdog still advances; documented
+  ponytail ceiling in lib/speech.ts.
+- Removing the corner drops one exit path -> the PIN-gated "Về nhà" button
+  and fullscreen-out remain; SPEC section 16 documents the override.

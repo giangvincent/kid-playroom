@@ -13,7 +13,7 @@ import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { animalLabel } from "@/lib/labels";
 import { ANIMAL_NAMES } from "@/lib/assets";
-import { speak } from "@/lib/speech";
+import { speak, playPraise } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
 const PAIR_COUNT = 6;
@@ -57,9 +57,11 @@ export function MemoryGame({ onWin }: GameProps) {
       nextMatched.add(second.id);
       setMatched(nextMatched);
       setFlipped([]);
-      if (nextMatched.size === deck.length) {
-        onWin?.();
-      }
+      playPraise(config.soundEnabled, () => {
+        if (nextMatched.size === deck.length) {
+          onWin?.();
+        }
+      });
       return;
     }
 
@@ -85,11 +87,11 @@ export function MemoryGame({ onWin }: GameProps) {
               "board-tile flex items-center justify-center border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               faceUp ? "bg-paper" : "bg-purple",
-              isMatched && "opacity-40",
+              isMatched && "tile-won opacity-40",
             )}
           >
             {faceUp ? (
-              <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />
+              <GameImage name={tile.sprite} className="h-full w-full" />
             ) : (
               <span className="text-3xl font-bold text-paper">?</span>
             )}

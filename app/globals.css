@@ -65,6 +65,17 @@
 
 }
 
+/* Correct pick: one springy pop on the tile that just answered right. */
+@keyframes tile-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.tile-won {
+  animation: tile-pop 0.35s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -334,3 +334,57 @@ pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and
   tap on a real touchscreen (WebKit multi-touch is the bug being fixed and has
   no desktop simulation), board proportions on the real wide tablet, and an
   airplane-mode offline run with the new SW cache.
+
+## Sprint 5 tasks
+
+- [x] Task S5-P1: Speech ended-callbacks + playPraise
+  - Acceptance: speak/announce accept an optional ended callback; playPraise
+    announces a random praise and fires onDone after the clip (or ~600 ms
+    with sound off); 5 s watchdog guarantees the callback.
+  - Verify: npm run typecheck
+  - Files: lib/speech.ts, lib/labels.ts
+- [x] Task S5-P2: Game wiring + pop CSS
+  - Acceptance: correct picks pop (tile-won) in all five games; Color/Size
+    lock input while praise plays; next round/goal/celebration starts only
+    after praise; Animal/Memory images fill their tiles (Matching keeps the
+    72% shape inset).
+  - Verify: npm run typecheck && npm run lint && visual check
+  - Files: app/globals.css, the five game components
+- [x] Task S5-P3: Remove hidden corner exit
+  - Acceptance: ExitCorner and its layout mount are gone, useLongPress
+    deleted, GameShell header padding lost its corner accommodation;
+    remaining exits stay PIN-gated.
+  - Verify: rg finds no ExitCorner/useLongPress references; typecheck
+  - Files: app/play/layout.tsx, components/child/GameShell.tsx,
+    components/child/ExitCorner.tsx (deleted), lib/hooks/useLongPress.ts
+    (deleted)
+- [x] Task S5-P4: Praise clips + SW list + test
+  - Acceptance: the three praise clips generated in the Sprint 3/4 voice and
+    committed (43 total); scripts/gen-speech.mjs, public/sw.js (cache v6),
+    and lib/speech-files.test.ts list them.
+  - Verify: npm run test (clip existence) + ls public/speech
+  - Files: public/speech/dung-roi.mp3, public/speech/con-gioi-qua.mp3,
+    public/speech/tuyet-voi.mp3, scripts/gen-speech.mjs, public/sw.js,
+    lib/speech-files.test.ts
+- [x] Task S5-P5: Verification
+  - Acceptance: full gate (typecheck/lint/test/build) passes; manual smoke:
+    correct pick pops, praise plays in full, next round waits, corner gone.
+  - Verify: npm run typecheck && npm run lint && npm run test && npm run build
+  - Files: none
+
+## Sprint 5 verification log (2026-10-07)
+
+- Gates: typecheck / lint / test (47) / build all pass clean.
+- Audio: the 3 praise clips generated with vi-VN-HoaiMyNeural (exact 11,232
+  bytes each, MPEG layer III); speech-files test maps all 43 phrases to
+  committed clips; public/sw.js precache updated and cache bumped to v6; no
+  stale v5 references.
+- Build smoke: "h-full w-full" and "tile-won" present in the games chunk;
+  "Giữ để thoát" and "useLongPress" absent from the entire build; /play
+  pages client-render after hydration (useConfig gates SSR), so live-server
+  HTML probes were inconclusive — served-page status codes for the six
+  routes and 3 clips remain unchecked (approval reviewer hit a 429 rate
+  limit; the sandbox also denies listening sockets).
+- NOT yet verified (needs the parent's devices): the actual praise playback
+  + advance-after-praise pacing on a real screen, pop animation feel, and an
+  airplane-mode run pulling the 3 new clips through the v6 cache.

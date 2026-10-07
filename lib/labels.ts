@@ -38,6 +38,9 @@ export const COLOR_LABELS = {
   brown: "màu nâu",
 } satisfies Record<ColorName, string>;
 
+/** Praise spoken when the child picks correctly — random pick each time. */
+export const PRAISE_PHRASES = ["Đúng rồi!", "Con giỏi quá!", "Tuyệt vời!"];
+
 function lookup(map: object, key: string): string {
   const value = (map as Record<string, string>)[key];
   return value ?? key;

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
-import { ExitCorner } from "@/components/child/ExitCorner";
 import { ParentGateProvider } from "@/components/child/ParentGateProvider";
 import { useWakeLock } from "@/lib/hooks/useFullscreen";
 import { primeSpeech } from "@/lib/speech";
@@ -47,7 +46,6 @@ export default function PlayLayout({ children }: { children: ReactNode }) {
   return (
     <ParentGateProvider>
       {children}
-      <ExitCorner />
     </ParentGateProvider>
   );
 }

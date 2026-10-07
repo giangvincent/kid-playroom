@@ -558,3 +558,106 @@ text → slug.
 1. Are the five goal phrasings in 15.2 the wording you want, or do you have
    preferred phrasing for Matching/Memory/Size? (Colour/Animal follow your
    "X ở đâu?" example directly.)
+
+---
+
+## 16. Sprint 5 — Correct-Pick Rewards, Filled Tiles, Cleaner Screen
+
+Requested by the parent (three concrete asks after playtesting).
+
+### 16.1 Objective
+
+1. **Bigger animal images in the tiles.** Animal photos on Animal/Memory
+   tiles are scaled to 72% of the tile box, leaving a white ring inside the
+   border. The images now fill the button (h-full/w-full, still
+   object-contain). Matching's tiles show shapes and keep their 72% inset —
+   the ask covers animal images only.
+2. **Reward the child, then move on.** A correct pick currently advances
+   instantly and the next clip cuts the speech mid-word, with no
+   congratulation. After a correct pick: the tile pops (one CSS keyframe), a
+   praise clip plays — "Đúng rồi!", "Con giỏi quá!", "Tuyệt vời!" (random
+   pick) — and the next round, board change, or win celebration starts only
+   after the praise clip finishes. With Âm thanh off there is no praise
+   voice, but the pop still shows and a ~600 ms beat keeps the change from
+   feeling abrupt.
+3. **Remove the hidden corner button** ("Giữ để thoát"). The visible "Về
+   nhà" button and the fullscreen exit already route through the parent
+   gate, so the corner is redundant. Delete ExitCorner, its layout mount,
+   the now-unused useLongPress hook, and the header padding that existed to
+   clear it. This drops one of three exits; the remaining exits stay
+   PIN-gated and the child still cannot leave Child Mode accidentally.
+
+### 16.2 Assumptions (confirm or correct)
+
+1. Praise clips: the three phrases above, generated in the same neural voice
+   as the existing 40; random pick per correct pick.
+2. "Animal images" covers every animal photo tile — the Animal board and
+   Memory's face-up cards; Matching's shape tiles keep their current inset.
+3. Parent explicitly overrides Sprint 1's "never remove the ability to exit"
+   for the corner button only.
+
+### 16.3 Success Criteria (testable)
+
+- Animal and Memory photos fill the tile up to the 4 px border, no white
+  ring; tap targets and aria labels unchanged; Matching untouched.
+- Every correct pick pops once (reduced-motion handled by the global rule).
+- Âm thanh ON: the tap's word plays, praise follows, then the next round /
+  goal / cue — never on top of it.
+- Âm thanh OFF: no speech; the correct tile pops and advances after ~600 ms.
+- Spam-tapping cannot advance two rounds (Color/Size are locked while praise
+  plays) or strand the game: a 5 s watchdog advances if a praise clip and the
+  fallback voice both die.
+- Three praise clips committed (43 total); the speech-files test, generator
+  phrase list, and sw.js precache list are updated; the SW cache is bumped so
+  installed devices fetch them.
+- npm run typecheck / lint / test / build pass; no remaining ExitCorner or
+  useLongPress references.
+
+### 16.4 Design
+
+**Speech.** lib/speech.ts's queue carries an optional per-clip `ended`
+callback (speak/announce gain an optional third argument; every existing
+call site keeps working). New playPraise(enabled, onDone?) picks a random
+praise phrase, announces it behind whatever is playing, fires onDone when
+the clip or fallback utterance ends, and self-fires from a 5 s watchdog as a
+last resort.
+
+**Games.** Color/Size add a busy lock while praise plays (so a tap cannot
+advance an extra round) plus a won/wonId state that pops the correct element
+until the round swaps. Matching/Memory announce praise when a pair completes
+and gate the final onWin on it; their pair visuals are otherwise unchanged.
+Animal pops the found tile and announces praise; the final found tile gates
+onWin on its praise.
+
+**CSS.** One tile-pop keyframe + .tile-won class in globals.css; games add
+the class on whichever tile just answered right.
+
+### 16.5 Files
+
+- Changed: lib/speech.ts, lib/labels.ts, lib/speech-files.test.ts,
+  scripts/gen-speech.mjs, public/sw.js, app/globals.css,
+  app/play/layout.tsx, components/child/GameShell.tsx, and the five games.
+- New: public/speech/dung-roi.mp3, public/speech/con-gioi-qua.mp3,
+  public/speech/tuyet-voi.mp3.
+- Deleted: components/child/ExitCorner.tsx, lib/hooks/useLongPress.ts.
+
+### 16.6 Testing & Verification
+
+- Vitest: speech-file mapping extended to the three praises (43 phrases,
+  each clip committed and checked by the existing existence test).
+- Gates: typecheck / lint / test / build pass.
+- Manual on device: correct pick pops + praises per game; the next round
+  waits for praise; spam taps cannot skip a round; praise clips play offline
+  after the SW cache refreshes.
+
+### 16.7 Boundaries (delta)
+
+- **Always:** keep every remaining exit PIN-gated; keep praise behind Âm
+  thanh; keep the 5 s advance watchdog so a broken voice can not strand a
+  round.
+- **Ask first:** more praise variants or wording changes.
+- **Never:** fetch audio at runtime; leave a child stuck on a finished board.
+
+### 16.8 Open Questions
+
+None — the three asks are concrete.

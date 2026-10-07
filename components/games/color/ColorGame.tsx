@@ -12,7 +12,7 @@ import type { GameProps } from "@/lib/games/types";
 import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { colorLabel, goalPhrase } from "@/lib/labels";
-import { speak } from "@/lib/speech";
+import { speak, playPraise } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
 const OPTION_COUNT = 4;
@@ -26,22 +26,33 @@ export function ColorGame({ onWin }: GameProps) {
   );
   const [roundIndex, setRoundIndex] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [won, setWon] = useState<string | null>(null);
   const goal = goalPhrase(colorLabel(round.target.name));
   const press = useTap(choose);
 
   useSpeakGoal(goal, config.soundEnabled, roundIndex);
 
   function choose(option: ColorOption) {
+    if (busy) {
+      return;
+    }
     speak(colorLabel(option.name), config.soundEnabled);
 
     if (isTargetColor(round, option)) {
       const next = roundIndex + 1;
-      if (next >= ROUNDS) {
-        onWin?.();
-        return;
-      }
-      setRoundIndex(next);
-      setRound(buildColorRound(GAME_COLORS, OPTION_COUNT));
+      setBusy(true);
+      setWon(option.name);
+      playPraise(config.soundEnabled, () => {
+        setBusy(false);
+        setWon(null);
+        if (next >= ROUNDS) {
+          onWin?.();
+          return;
+        }
+        setRoundIndex(next);
+        setRound(buildColorRound(GAME_COLORS, OPTION_COUNT));
+      });
       return;
     }
 
@@ -70,6 +81,7 @@ export function ColorGame({ onWin }: GameProps) {
               "h-[min(24vmin,15rem)] w-[min(24vmin,15rem)] border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               wrong === option.name && "opacity-40",
+              won === option.name && "tile-won",
             )}
           />
         ))}

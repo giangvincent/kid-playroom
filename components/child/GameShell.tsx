@@ -35,7 +35,7 @@ export function GameShell({ gameId }: { gameId: string }) {
 
   return (
     <div className="flex min-h-dvh flex-col gap-4 p-4">
-      <header className="flex items-center gap-4 pl-16">
+      <header className="flex items-center gap-4">
         <PixelButton
           tone="accent"
           className="px-4 text-base"

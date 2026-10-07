@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   ANIMAL_LABELS,
   COLOR_LABELS,
+  PRAISE_PHRASES,
   SHAPE_LABELS,
   goalPhrase,
 } from "@/lib/labels";
@@ -22,6 +23,7 @@ const PHRASES = [
   ...Object.values(SHAPE_LABELS),
   ...Object.values(ANIMAL_LABELS),
   ...Object.values(COLOR_LABELS),
+  ...PRAISE_PHRASES,
   ...GOALS,
 ];
 
@@ -37,7 +39,7 @@ describe("speechSlug", () => {
 
 describe("speechFile", () => {
   it("maps every spoken phrase to a committed clip", () => {
-    expect(PHRASES).toHaveLength(40);
+    expect(PHRASES).toHaveLength(43);
     for (const phrase of PHRASES) {
       const path = speechFile(phrase);
       const file = join(import.meta.dirname, "..", "public", path);

@@ -38,10 +38,12 @@ const COLORS = [
   "màu đỏ", "màu cam", "màu vàng", "màu xanh lá",
   "màu xanh dương", "màu tím", "màu hồng", "màu nâu",
 ];
+const PRAISES = ["Đúng rồi!", "Con giỏi quá!", "Tuyệt vời!"];
 const ANIMALS = ["con mèo", "con chó", "con cá", "con chim", "con ếch", "con thỏ"];
 
 const PHRASES = [
   ...LABELS,
+  ...PRAISES,
   "Những hình giống nhau ở đâu?",
   "Hai thẻ giống nhau ở đâu?",
   ...COLORS.map(goal),

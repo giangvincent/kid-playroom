@@ -14,7 +14,7 @@ import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { shapeLabel } from "@/lib/labels";
 import { SHAPE_NAMES } from "@/lib/assets";
-import { speak } from "@/lib/speech";
+import { speak, playPraise } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
 const PAIR_COUNT = 4;
@@ -60,9 +60,11 @@ export function MatchingGame({ onWin }: GameProps) {
       next.add(tile.id);
       setMatched(next);
       setFirstId(null);
-      if (isBoardCleared(board, next)) {
-        onWin?.();
-      }
+      playPraise(config.soundEnabled, () => {
+        if (isBoardCleared(board, next)) {
+          onWin?.();
+        }
+      });
       return;
     }
 
@@ -90,7 +92,7 @@ export function MatchingGame({ onWin }: GameProps) {
                 "board-tile flex items-center justify-center border-4 border-ink",
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               isWrong ? "bg-danger" : isSelected ? "bg-accent" : "bg-paper",
-              isMatched && "opacity-25",
+              isMatched && "tile-won opacity-25",
             )}
           >
               <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />

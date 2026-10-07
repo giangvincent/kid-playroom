@@ -9,7 +9,7 @@ import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { animalLabel, goalPhrase } from "@/lib/labels";
 import { ANIMAL_NAMES } from "@/lib/assets";
-import { speak } from "@/lib/speech";
+import { speak, playPraise } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
 const WRONG_FLASH_MS = 400;
@@ -31,18 +31,20 @@ export function AnimalGame({ onWin }: GameProps) {
 
     speak(animalLabel(tile.sprite), config.soundEnabled);
 
-    if (tile.sprite === scene.target) {
-      const next = new Set(found);
-      next.add(tile.id);
-      setFound(next);
-      if (next.size >= scene.targetCount) {
-        onWin?.();
-      }
+    if (tile.sprite !== scene.target) {
+      setWrongId(tile.id);
+      window.setTimeout(() => setWrongId(null), WRONG_FLASH_MS);
       return;
     }
 
-    setWrongId(tile.id);
-    window.setTimeout(() => setWrongId(null), WRONG_FLASH_MS);
+    const next = new Set(found);
+    next.add(tile.id);
+    setFound(next);
+    if (next.size >= scene.targetCount) {
+      playPraise(config.soundEnabled, () => onWin?.());
+    } else {
+      playPraise(config.soundEnabled);
+    }
   }
 
   return (
@@ -69,10 +71,10 @@ export function AnimalGame({ onWin }: GameProps) {
                 "board-tile flex items-center justify-center border-4 border-ink",
                 "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
                 isWrong ? "bg-danger" : "bg-paper",
-                isFound && "opacity-25",
+                isFound && "tile-won opacity-25",
               )}
             >
-              <GameImage name={tile.sprite} className="h-[72%] w-[72%]" />
+              <GameImage name={tile.sprite} className="h-full w-full" />
             </button>
           );
         })}

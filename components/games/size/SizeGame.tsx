@@ -13,6 +13,7 @@ import { useTap } from "@/lib/hooks/useTap";
 import { useSpeakGoal } from "@/lib/hooks/useSpeakGoal";
 import { SHAPE_NAMES } from "@/lib/assets";
 import { goalPhrase } from "@/lib/labels";
+import { playPraise } from "@/lib/speech";
 import { useConfig } from "@/lib/store";
 
 const ROUND_MODES = ["biggest", "smallest", "biggest"] as const satisfies
@@ -38,19 +39,31 @@ export function SizeGame({ onWin }: GameProps) {
     buildSizeRound(SHAPE_NAMES, ROUND_MODES[0]),
   );
   const [wrongId, setWrongId] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [wonId, setWonId] = useState<string | null>(null);
   const press = useTap(choose);
 
   useSpeakGoal(goalFor(round.mode), config.soundEnabled, roundIndex);
 
   function choose(id: string) {
+    if (busy) {
+      return;
+    }
+
     if (isCorrectChoice(round, id)) {
       const next = roundIndex + 1;
-      if (next >= ROUNDS) {
-        onWin?.();
-        return;
-      }
-      setRoundIndex(next);
-      setRound(buildSizeRound(SHAPE_NAMES, ROUND_MODES[next]));
+      setBusy(true);
+      setWonId(id);
+      playPraise(config.soundEnabled, () => {
+        setBusy(false);
+        setWonId(null);
+        if (next >= ROUNDS) {
+          onWin?.();
+          return;
+        }
+        setRoundIndex(next);
+        setRound(buildSizeRound(SHAPE_NAMES, ROUND_MODES[next]));
+      });
       return;
     }
 
@@ -72,6 +85,7 @@ export function SizeGame({ onWin }: GameProps) {
               STEP_CLASSES[item.size - 1],
               "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
               wrongId === item.id ? "bg-danger" : "bg-paper",
+              wonId === item.id && "tile-won",
             )}
           >
             <GameImage name={round.sprite} className="h-full w-full" />
