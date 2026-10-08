@@ -8,10 +8,13 @@ export type AppConfig = {
   soundEnabled: boolean;
   /** Game ids turned off in Parent Mode. Empty means every game is enabled. */
   disabledGames: string[];
+  /** Tiles per board in the find-games (animal / rau quả / xe cộ). */
+  findBoardSize: number;
 };
 
 export const DEFAULT_CONFIG: AppConfig = {
   pin: null,
   soundEnabled: true,
   disabledGames: [],
+  findBoardSize: 12,
 };

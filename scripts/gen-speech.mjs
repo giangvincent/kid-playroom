@@ -9,7 +9,7 @@ import { join } from "node:path";
 const OUT = join(import.meta.dirname, "..", "public", "speech");
 const VOICE = "vi-VN-HoaiMyNeural";
 
-const LABELS = [
+const SHAPES = [
   "hình tròn",
   "hình vuông",
   "hình tam giác",
@@ -18,36 +18,85 @@ const LABELS = [
   "hình trái tim",
   "hình tròn rỗng",
   "hình chữ thập",
+];
+
+const ANIMALS = [
   "con mèo",
   "con chó",
   "con cá",
   "con chim",
   "con ếch",
   "con thỏ",
-  "màu đỏ",
-  "màu cam",
-  "màu vàng",
-  "màu xanh lá",
-  "màu xanh dương",
-  "màu tím",
-  "màu hồng",
-  "màu nâu",
+  "con bò",
+  "con gà",
+  "con vịt",
+  "con heo",
+  "con cá heo",
+  "con cá mập",
+];
+
+const FRUIT_VEG = [
+  "quả xoài",
+  "quả chuối",
+  "quả cam",
+  "quả ổi",
+  "quả dưa hấu",
+  "quả đu đủ",
+  "quả nhãn",
+  "quả măng cầu",
+  "quả sầu riêng",
+  "quả vải",
+  "quả thanh long",
+  "quả bơ",
+  "quả cà chua",
+  "củ cà rốt",
+  "củ khoai tây",
+  "bắp ngô",
+  "quả bí ngô",
+  "quả dứa",
+];
+
+const VEHICLES = [
+  "xe máy",
+  "xe đạp",
+  "xe ô tô",
+  "xe buýt",
+  "xe tải",
+  "xe cứu hỏa",
+  "xe cứu thương",
+  "tàu hỏa",
+  "máy bay",
+  "trực thăng",
+  "tàu thủy",
+  "thuyền máy",
+  "xuồng",
+  "thuyền",
+  "phà",
+  "xích lô",
+  "cáp treo",
+  "xe khách",
 ];
 
 const COLORS = [
   "màu đỏ", "màu cam", "màu vàng", "màu xanh lá",
   "màu xanh dương", "màu tím", "màu hồng", "màu nâu",
 ];
+
 const PRAISES = ["Đúng rồi!", "Con giỏi quá!", "Tuyệt vời!"];
-const ANIMALS = ["con mèo", "con chó", "con cá", "con chim", "con ếch", "con thỏ"];
 
 const PHRASES = [
-  ...LABELS,
+  ...SHAPES,
+  ...ANIMALS,
+  ...FRUIT_VEG,
+  ...VEHICLES,
+  ...COLORS,
   ...PRAISES,
   "Những hình giống nhau ở đâu?",
   "Hai thẻ giống nhau ở đâu?",
   ...COLORS.map(goal),
   ...ANIMALS.map(goal),
+  ...FRUIT_VEG.map(goal),
+  ...VEHICLES.map(goal),
   goal("hình lớn nhất"),
   goal("hình nhỏ nhất"),
 ];

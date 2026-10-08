@@ -14,8 +14,8 @@
   --color-pink: #ff77a8;
   --color-orange: #ffa300;
 
-  --font-pixel: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
-    monospace;
+  --font-pixel:
+    ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @layer base {
@@ -59,17 +59,35 @@
 
   /* Game tiles scale with the viewport (vmin bounds width and height). */
   .board-tile {
-    width: min(24vmin, 16rem);
-    height: min(24vmin, 16rem);
+    width: min(22vmin, 16rem);
+    height: min(22vmin, 16rem);
   }
 
+  /* Find-game boards shrink their tiles as the tile count grows (4..16).
+     Width and height are bounded separately (vw / dvh) so neither axis
+     overflows the shell. */
+  .find-board {
+    --cols: 4;
+    --rows: 3;
+  }
+
+  .find-board .board-tile {
+    width: min(calc(74vw / var(--cols)), calc(54dvh / var(--rows)), 12rem);
+    height: min(calc(74vw / var(--cols)), calc(54dvh / var(--rows)), 12rem);
+  }
 }
 
 /* Correct pick: one springy pop on the tile that just answered right. */
 @keyframes tile-pop {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.12); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .tile-won {

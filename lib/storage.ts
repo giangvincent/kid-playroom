@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG, PIN_LENGTH, type AppConfig } from "./config";
+import { isBoardSize } from "./logic/boardSize";
 
 const STORAGE_KEY = "playroom.config.v1";
 
@@ -29,6 +30,9 @@ export function parseConfig(raw: unknown): AppConfig {
     disabledGames: isStringArray(value.disabledGames)
       ? value.disabledGames
       : DEFAULT_CONFIG.disabledGames,
+    findBoardSize: isBoardSize(value.findBoardSize)
+      ? value.findBoardSize
+      : DEFAULT_CONFIG.findBoardSize,
   };
 }
 

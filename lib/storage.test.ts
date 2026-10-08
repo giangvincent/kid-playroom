@@ -22,11 +22,13 @@ describe("parseConfig", () => {
       pin: "1234",
       soundEnabled: true,
       disabledGames: ["memory"],
+      findBoardSize: 16,
     });
     expect(parsed).toEqual({
       pin: "1234",
       soundEnabled: true,
       disabledGames: ["memory"],
+      findBoardSize: 16,
     });
   });
 
@@ -46,6 +48,12 @@ describe("parseConfig", () => {
     expect(parseConfig({ disabledGames: [1, 2] }).disabledGames).toEqual([]);
   });
 
+  it("rejects a board size outside the offered set", () => {
+    expect(parseConfig({ findBoardSize: 7 }).findBoardSize).toBe(12);
+    expect(parseConfig({ findBoardSize: "16" }).findBoardSize).toBe(12);
+    expect(parseConfig({ findBoardSize: 16 }).findBoardSize).toBe(16);
+  });
+
   it("falls back for non-objects", () => {
     expect(parseConfig(null)).toEqual(DEFAULT_CONFIG);
     expect(parseConfig("nope")).toEqual(DEFAULT_CONFIG);
@@ -59,7 +67,12 @@ describe("loadConfig / saveConfig", () => {
 
   it("round-trips a saved config", () => {
     vi.stubGlobal("window", { localStorage: fakeStorage() });
-    const config = { pin: "4321", soundEnabled: true, disabledGames: ["color"] };
+    const config = {
+      pin: "4321",
+      soundEnabled: true,
+      disabledGames: ["color"],
+      findBoardSize: 9,
+    };
     saveConfig(config);
     expect(loadConfig()).toEqual(config);
   });

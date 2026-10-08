@@ -22,7 +22,7 @@ export function GameImage({
       width={size}
       height={size}
       draggable={false}
-      className={cx("select-none object-contain", className)}
+      className={cx("select-none object-cover", className)}
     />
   );
 }

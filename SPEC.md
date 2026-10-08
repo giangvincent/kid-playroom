@@ -661,3 +661,219 @@ the class on whichever tile just answered right.
 ### 16.8 Open Questions
 
 None — the three asks are concrete.
+
+---
+
+## 17. Sprint 6 — Square Imagery, More Animals, Rau quả & Xe cộ Games
+
+Requested by the parent (three asks, spec-driven).
+
+### 17.1 Objective
+
+1. **Square imagery everywhere.** All photo assets become 1:1 center
+   crops (≤ 640 px) so tiles are filled edge-to-edge without white bands.
+2. **Six more animals.** cow, chicken, duck, pig, dolphin, shark join the
+   six existing ones (12 total) in the animal game, each with a Vietnamese
+   label, tap speech, and goal clip.
+3. **Two new find-the-item games**, built on the same engine as the animal
+   game: **Rau quả** (fruits + vegetables, 18 items) and **Xe cộ**
+   (vehicles, 18 items), each item with a square image, Vietnamese label,
+   tap speech, and goal clip. Parent toggles and the game grid pick them up
+   from the registry automatically.
+
+### 17.2 Assumptions (confirm or correct)
+
+1. Sources: Wikimedia Commons photos (free licences, attributed in
+   docs/ASSETS.md) and Twemoji SVGs for the two new game icons. "Priority
+   images come from Viet Nam" = VN-context search queries first ("xe máy
+   Vietnam", "mango Vietnam market", …), generic Wikipedia/Commons fallback
+   where a VN-context photo is unavailable; the six existing animal photos
+   keep their subjects and are square-cropped, not re-sourced.
+2. "Extend the animal game" = ADD two games alongside it; the animal game
+   stays.
+3. Dialect/word choices: con heo (not lợn), quả dứa (not thơm), bắp ngô
+   (corn), dolphins/sharks as "con cá heo"/"con cá mập" to keep the "con "
+   pattern. Goals reuse the established "X ở đâu?" form.
+4. Item lists (18 each) as implemented in lib/labels.ts; swapping a word or
+   an image later touches one entry + one file.
+5. Game ids: fruit, vehicle; titles "Rau quả", "Xe cộ"; icons: grapes and
+   automobile Twemoji.
+
+### 17.3 Success Criteria (testable)
+
+- Every photo in public/assets is square (1:1), ≤ 640 px, still loaded via
+  the existing ASSETS map; no white bands in tiles.
+- Animal game draws from 12 animals; a scene still shows 12 tiles / 3
+  targets (existing logic tests keep passing).
+- /play/fruit and /play/vehicle are playable: goal announces per round, tap
+  speaks the item, correct pick pops + praises, win celebrates (Sprint 5
+  behaviour inherited).
+- All 12 + 18 + 18 items have committed clips (labels + goals; 127 phrases
+  total); speech-files test enforces every clip exists.
+- Both games appear in the game grid and Parent Mode toggles (registry-
+  driven), and can be disabled.
+- public/sw.js precaches the two new routes, all new images, and all new
+  clips (cache bumped); docs/ASSETS.md lists every new file with source
+  and licence.
+- npm run typecheck / lint / test / build pass.
+
+### 17.4 Design
+
+**Sourcing.** scripts/fetch-images.mjs gains: per-item query chains
+(VN-context first, article lead fallback) against the Commons search API
+with licence filtering (CC/Public domain, JPEG, ≥ 600 px), square center
+crop + resize via sips, and regenerated ASSETS.md tables.
+
+**Games.** buildAnimalScene is already generic over the name pool; the two
+new components are thin clones of AnimalGame over FRUIT_VEG_NAMES /
+VEHICLE_NAMES with their label lookups. Registry gains two entries; config
+needs no change (disabledGames is a plain string list, toggles derive from
+the registry).
+
+**Voice.** gen-speech.mjs gains the 42 new labels + 42 new goals (84 new
+clips, same neural voice); sw.js precache list regenerated from the files
+on disk and cache bumped to v7.
+
+### 17.5 Files
+
+- New: public/assets/* (~42 jpg + 2 svg), public/speech/* (~84 mp3),
+  components/games/fruit/FruitGame.tsx,
+  components/games/vehicle/VehicleGame.tsx.
+- Changed: scripts/fetch-images.mjs, scripts/gen-speech.mjs, lib/assets.ts,
+  lib/labels.ts, lib/labels.test.ts, lib/games/registry.ts,
+  lib/speech-files.test.ts, public/sw.js, docs/ASSETS.md, SPEC.md,
+  tasks/*.
+- Deleted: nothing.
+
+### 17.6 Testing & Verification
+
+- Vitest: speech-file mapping covers 127 phrases (each clip on disk);
+  labels coverage loops over the new name lists.
+- Gates: typecheck / lint / test / build.
+- Manual: contact-sheet check of every downloaded image; play both new
+  games in the browser (goal → tap speech → praise → win); parent toggles;
+  on-device pass remains the parent's step.
+
+### 17.7 Boundaries (delta)
+
+- **Always:** attribute every new asset in docs/ASSETS.md; keep runtime
+  offline (clips and images committed).
+- **Ask first:** dropping an item that cannot be sourced licence-free
+  (swap for another item instead and note it in the log).
+- **Never:** fetch images or audio at runtime; ship AI-generated images for
+  game content.
+
+### 17.8 Open Questions
+
+None — defaults above; swap any word/image by name later.
+
+---
+
+## 18. Sprint 7 — Board-Size Setting, Homepage Blocks
+
+Requested by the parent (two asks, spec-driven). Status: Implemented and
+verified in-browser — see `tasks/todo.md` (Sprint 7 log).
+
+### 18.1 Objective
+
+1. **Board-size setting for the find-games.** Animal (`animal`), Rau quả
+   (`fruit`) and Xe cộ (`vehicle`) all render the shared `FindGame` board at a
+   fixed 12 tiles. Add one parent setting — **Số ô** — choosing the number of
+   tiles: **4, 6, 9, 12, 16**. One shared value covers all three games.
+2. **Homepage in blocks, not a vertical list.** In Parent Mode (`/`), the game
+   list (`GameToggles`, today a full-width stacked list) and the Cài đặt actions
+   (`SettingsForm`, today stacked full-width buttons) become grids of blocks.
+   The child game grid (`/play`) already uses blocks and is left as-is.
+
+### 18.2 Assumptions (confirm or correct)
+
+1. **One shared setting** for the three find-games (parent-confirmed), not one
+   per game.
+2. **Targets scale with the board** (parent-confirmed): a small board gets fewer
+   items to find, so every size is a real search. Mapping: 4→1, 6→2, 9→2, 12→3,
+   16→4 — i.e. `max(1, round(n / 4))`.
+3. **Default stays 12 tiles / 3 targets**, so every existing install keeps
+   today's behaviour and no storage-key migration is needed (the config
+   validator fills new fields from defaults).
+4. **Board layouts** follow the count: 4→2×2, 6→3×2, 9→3×3, 12→4×3, 16→4×4.
+5. "Homepage" means Parent Mode (`/`) (parent-confirmed).
+
+### 18.3 Success Criteria (testable)
+
+- A **Số ô** control in Parent Mode offers exactly 4, 6, 9, 12, 16, highlights
+  the current value, and persists the choice across reload.
+- Opening animal / fruit / vehicle renders exactly the chosen number of tiles,
+  with the derived number of targets; a fresh install renders 12 tiles / 3
+  targets exactly as today.
+- Boards fit the viewport without scrolling at every count, on a wide landscape
+  screen and on a phone; every tile stays ≥ 64 px.
+- Tapping still speaks, a correct pick still praises, and the win still waits
+  for praise (Sprint 5/6 behaviour inherited).
+- Parent Mode shows the games and the Cài đặt actions as **block grids** (no
+  full-width vertical list); toggling a game, the sound toggle, and change-PIN
+  all still work.
+- `npm run typecheck`, `lint`, `test`, `build` pass.
+
+### 18.4 Design
+
+**Config.** `AppConfig` gains `findBoardSize: number`; `lib/config.ts` exports
+`BOARD_SIZES = [4, 6, 9, 12, 16] as const` and `DEFAULT_CONFIG.findBoardSize =
+12`. `parseConfig` accepts only members of `BOARD_SIZES` (trust boundary), else
+the default. The existing `playroom.config.v1` key is kept because missing
+fields already fall back to defaults, so old configs upgrade silently.
+
+**Scene.** `buildAnimalScene` gains the tile count (`buildAnimalScene(pool,
+tileCount, rng)`) and derives `targetCount = max(1, round(tileCount / 4))`; the
+`TILE_COUNT` / `TARGET_COUNT` constants become these derived values. The three
+game wrappers are unchanged except that `FindGame` reads `findBoardSize` from
+`useConfig()` and passes it down. A small pure helper maps a size to its grid
+(`{ cols, rows }`).
+
+**Sizing.** `.board-tile` keeps its fixed `min(22vmin, 16rem)` for Matching and
+Memory; the find board overrides it under a `.find-board` scope with a
+count-aware size driven by CSS custom properties (`--cols`, `--rows`):
+`min(calc(74vw / var(--cols)), calc(54dvh / var(--rows)), 12rem)`, with the
+board at `grid-template-columns: repeat(var(--cols), auto)`. Width and height
+are bounded on separate axes (`vw` / `dvh`) — `vmin` alone sized too
+conservatively on a tall narrow phone — and the board is verified to fit with
+no scroll at 1280×800 and 390×844.
+
+**Homepage blocks.** `GameToggles` keeps its per-game on/off logic but renders a
+responsive grid of square-ish block cards (icon + title + Bật/Tắt) instead of a
+`<ul>` of full-width rows. `SettingsForm` renders its actions as a grid of
+blocks. A new `BoardSizeSetting` block — five choice chips — joins the Cài đặt
+section.
+
+### 18.5 Files
+
+- New: `components/parent/BoardSizeSetting.tsx`, `lib/logic/boardSize.ts` +
+  `lib/logic/boardSize.test.ts`.
+- Changed: `lib/config.ts`, `lib/storage.ts`, `lib/storage.test.ts`,
+  `lib/logic/animalScene.ts`, `lib/logic/animalScene.test.ts`,
+  `components/games/find/FindGame.tsx`, `app/globals.css`,
+  `components/parent/GameToggles.tsx`, `components/parent/SettingsForm.tsx`,
+  `app/page.tsx`.
+- Deleted: nothing.
+
+### 18.6 Testing & Verification
+
+- Vitest: `buildAnimalScene` for every board size (exact tile count, derived
+  target count, unique ids, pool-only sprites); the size → layout mapping;
+  `parseConfig` / `loadConfig` reject a `findBoardSize` outside `BOARD_SIZES`.
+- Gates: typecheck / lint / test / build.
+- Manual / browser: the five sizes render and fit; toggles and settings blocks
+  work; a reload keeps the chosen size.
+
+### 18.7 Boundaries (delta)
+
+- **Always:** validate `findBoardSize` at the storage boundary; keep tap targets
+  ≥ 64 px at every board size; keep 12 as the default so existing installs are
+  unchanged.
+- **Ask first:** adding any dependency (none expected).
+- **Never:** game rules change for any reason other than the board size; fetch
+  anything at runtime.
+
+### 18.8 Open Questions
+
+None — the two asks and the three clarifications (shared setting, scaling
+targets, Parent Mode) are settled.

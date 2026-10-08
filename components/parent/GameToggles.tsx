@@ -20,30 +20,30 @@ export function GameToggles() {
   return (
     <section className="flex flex-col gap-4">
       <h2 className="text-xl font-bold">Trò chơi</h2>
-      <ul className="flex flex-col gap-3">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {GAMES.map((game) => {
           const enabled = !config.disabledGames.includes(game.id);
           return (
-            <li key={game.id}>
-              <button
-                type="button"
-                onClick={() => toggle(game.id)}
-                className={cx(
-                  "flex min-h-16 w-full items-center gap-4 border-4 border-ink px-5",
-                  "shadow-[4px_4px_0_0_var(--color-ink)]",
-                  enabled ? "bg-paper" : "bg-mist",
-                )}
-              >
-                <GameImage name={game.icon} size={40} />
-                <span className="text-lg font-bold">{game.title}</span>
-                <span className="ml-auto text-lg font-bold">
-                  {enabled ? "Bật" : "Tắt"}
-                </span>
-              </button>
-            </li>
+            <button
+              key={game.id}
+              type="button"
+              onClick={() => toggle(game.id)}
+              aria-pressed={enabled}
+              className={cx(
+                "flex min-h-32 flex-col items-center justify-center gap-3 border-4 border-ink p-4",
+                "shadow-[4px_4px_0_0_var(--color-ink)] transition-transform active:translate-y-[2px]",
+                enabled ? "bg-paper" : "bg-mist",
+              )}
+            >
+              <GameImage name={game.icon} size={48} />
+              <span className="text-center text-lg font-bold">{game.title}</span>
+              <span className="text-base font-bold">
+                {enabled ? "Bật" : "Tắt"}
+              </span>
+            </button>
           );
         })}
-      </ul>
+      </div>
     </section>
   );
 }

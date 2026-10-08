@@ -1,0 +1,329 @@
+{
+  "pig.jpg": {
+    "image": "File:Black pig in Sa Pa, Vietnam.jpg",
+    "license": "CC BY 2.0",
+    "artist": "Everjean from Antwerp, Belgium"
+  },
+  "mango.jpg": {
+    "image": "File:Xoài cát Hòa Lộc.JPG",
+    "license": "CC0",
+    "artist": "Hungda"
+  },
+  "guava.jpg": {
+    "image": "File:Ổi đào -pink guava.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Hungda"
+  },
+  "longan.jpg": {
+    "image": "File:Longan fruits.jpg",
+    "license": "CC0",
+    "artist": "Dinkum"
+  },
+  "mangosteen.jpg": {
+    "image": "File:Mangosteen Basket.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Bonneaue"
+  },
+  "lychee.jpg": {
+    "image": "File:Litchis au marché.JPG",
+    "license": "CC0",
+    "artist": "Dinkum"
+  },
+  "avocado.jpg": {
+    "image": "File:Quả bơ bán tại chợ Đà Lạt, Vietnam.JPG",
+    "license": "CC BY-SA 3.0",
+    "artist": "Hungda"
+  },
+  "motorbike.jpg": {
+    "image": "File:Motorbikes at hanoi vietnam.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "William Whyte"
+  },
+  "bus.jpg": {
+    "image": "File:SAIGON SAMCO BUS VIETNAM JAN 2012 (6821384554).jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "calflier001"
+  },
+  "firetruck.jpg": {
+    "image": "File:Fire engine ZIL-131 2009 G1.jpg",
+    "license": "Public domain",
+    "artist": "George Chernilevsky"
+  },
+  "ambulance.jpg": {
+    "image": "File:An Viet EcoClinic ambulance 2017.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Donald Trung"
+  },
+  "canoe.jpg": {
+    "image": "File:Long motorboat on the Chao Phraya River in Bangkok.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Grendelkhan"
+  },
+  "ferry.jpg": {
+    "image": "File:Dinh Vu ferry Vietnam.JPG",
+    "license": "Public domain",
+    "artist": "Binh Giang"
+  },
+  "coach.jpg": {
+    "image": "File:SAIGON TO NHA TRANG COACH HYUNDAI AERODECK HI CLASS VIETNAM JAN 2012 (6864383838).jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "calflier001"
+  },
+  "chicken.jpg": {
+    "image": "File:Male_and_female_chicken_sitting_together.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Andrei Niemimäki from Turku, Finland"
+  },
+  "dolphin.jpg": {
+    "image": "File:Tursiops_truncatus_01.jpg",
+    "license": "Public domain",
+    "artist": "NASA"
+  },
+  "shark.jpg": {
+    "image": "File:Corl0207_(28225976491).jpg",
+    "license": "CC BY 2.0",
+    "artist": "NOAA Photo Library"
+  },
+  "banana.jpg": {
+    "image": "File:Bananavarieties.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "TimothyPilgrim"
+  },
+  "orange.jpg": {
+    "image": "File:Oranges_-_whole-halved-segment.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Ivar Leidus"
+  },
+  "watermelon.jpg": {
+    "image": "File:Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Fred Hsu (Wikipedia:User:Fred Hsu on en.wikipedia)"
+  },
+  "dragonfruit.jpg": {
+    "image": "File:Pitaya_cross_section_ed2.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "SMasters"
+  },
+  "carrot.jpg": {
+    "image": "File:Vegetable-Carrot-Bundle-wStalks.jpg",
+    "license": "Public domain",
+    "artist": "Evan-Amos"
+  },
+  "potato.jpg": {
+    "image": "File:Patates.jpg",
+    "license": "Public domain",
+    "artist": "Scott Bauer, USDA ARS"
+  },
+  "corn.jpg": {
+    "image": "File:CookedCornOnTheCob.JPG",
+    "license": "CC BY-SA 3.0",
+    "artist": "Jonathunder"
+  },
+  "pumpkin.jpg": {
+    "image": "File:FrenchMarketPumpkinsB.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Infrogmation of New Orleans"
+  },
+  "bicycle.jpg": {
+    "image": "File:Left_side_of_Flying_Pigeon.jpg",
+    "license": "CC BY 2.0",
+    "artist": "齐健 from Peking, People's Republic of China"
+  },
+  "truck.jpg": {
+    "image": "File:2001_Ford_F-250_Super_Duty_XL_regular_cab_flatbed,_front_left,_05-17-2025.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "MercurySable99"
+  },
+  "_a:cat.jpg": {
+    "file": "cat.jpg",
+    "image": "Siam_lilacpoint.jpg",
+    "article": "Cat",
+    "license": "CC BY-SA 3.0",
+    "artist": "Karin Langner-Bahmann, upload von Martin Bahmann"
+  },
+  "_a:dog.jpg": {
+    "file": "dog.jpg",
+    "image": "Labrador_on_Quantock_(2175262184).jpg",
+    "article": "Labrador Retriever",
+    "license": "CC BY-SA 2.0",
+    "artist": "IDS.photos from Tiverton, UK"
+  },
+  "_a:fish.jpg": {
+    "file": "fish.jpg",
+    "image": "Gold_fish1.jpg",
+    "article": "Goldfish",
+    "license": "CC BY-SA 3.0",
+    "artist": "לינה אבוגוש"
+  },
+  "_a:bird.jpg": {
+    "file": "bird.jpg",
+    "image": "Budgerigar-male-strzelecki-qld.jpg",
+    "article": "Budgerigar",
+    "license": "GFDL 1.2",
+    "artist": "Benjamint444"
+  },
+  "_a:frog.jpg": {
+    "file": "frog.jpg",
+    "image": "European_Common_Frog_Rana_temporaria.jpg",
+    "article": "Common frog",
+    "license": "CC BY-SA 2.5",
+    "artist": "Richard Bartz, Munich aka Makro Freak Image:MFB.jpg"
+  },
+  "_a:rabbit.jpg": {
+    "file": "rabbit.jpg",
+    "image": "Oryctolagus_cuniculus_-_euqirneto_-_419737670_(cropped).jpeg",
+    "article": "European rabbit",
+    "license": "CC BY 4.0",
+    "artist": "euqirneto"
+  },
+  "_i:circle.svg": {
+    "file": "circle.svg",
+    "name": "large blue circle",
+    "code": "1f535"
+  },
+  "_i:square.svg": {
+    "file": "square.svg",
+    "name": "large green square",
+    "code": "1f7e9"
+  },
+  "_i:triangle.svg": {
+    "file": "triangle.svg",
+    "name": "red triangle",
+    "code": "1f53a"
+  },
+  "_i:diamond.svg": {
+    "file": "diamond.svg",
+    "name": "large orange diamond",
+    "code": "1f536"
+  },
+  "_i:star.svg": {
+    "file": "star.svg",
+    "name": "star",
+    "code": "2b50"
+  },
+  "_i:heart.svg": {
+    "file": "heart.svg",
+    "name": "red heart",
+    "code": "2764"
+  },
+  "_i:ring.svg": {
+    "file": "ring.svg",
+    "name": "heavy large circle",
+    "code": "2b55"
+  },
+  "_i:plus.svg": {
+    "file": "plus.svg",
+    "name": "heavy plus sign",
+    "code": "2795"
+  },
+  "_i:icon-matching.svg": {
+    "file": "icon-matching.svg",
+    "name": "puzzle piece",
+    "code": "1f9e9"
+  },
+  "_i:icon-color.svg": {
+    "file": "icon-color.svg",
+    "name": "artist palette",
+    "code": "1f3a8"
+  },
+  "_i:icon-size.svg": {
+    "file": "icon-size.svg",
+    "name": "straight ruler",
+    "code": "1f4cf"
+  },
+  "_i:icon-drawing.svg": {
+    "file": "icon-drawing.svg",
+    "name": "pencil",
+    "code": "270f"
+  },
+  "_i:icon-memory.svg": {
+    "file": "icon-memory.svg",
+    "name": "flower playing cards",
+    "code": "1f3b4"
+  },
+  "_i:icon-fruit.svg": {
+    "file": "icon-fruit.svg",
+    "name": "grapes",
+    "code": "1f347"
+  },
+  "_i:icon-vehicle.svg": {
+    "file": "icon-vehicle.svg",
+    "name": "automobile",
+    "code": "1f697"
+  },
+  "car.jpg": {
+    "image": "File:Creamcoffeecolor car on Vũ Phạm Hàm Street 14-02-2026 E2.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Hoàng Đức Xuyên T59"
+  },
+  "cablecar.jpg": {
+    "image": "File:Ba Na Resort Da Nang, Vietnam.jpg",
+    "license": "CC BY 3.0",
+    "artist": "Fa2f"
+  },
+  "duck.jpg": {
+    "image": "File:Taiwanese_duck_farm.jpg",
+    "license": "CC BY 2.0",
+    "artist": "MiNe (sfmine79) from Taipei, Taiwan"
+  },
+  "papaya.jpg": {
+    "image": "File:Carica_papaya_-_Köhler–s_Medizinal-Pflanzen-029.jpg",
+    "license": "Public domain",
+    "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen"
+  },
+  "durian.jpg": {
+    "image": "File:Durian_in_black.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "مانفی"
+  },
+  "tomato.jpg": {
+    "image": "File:Tomato_je.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Softeis"
+  },
+  "pineapple.jpg": {
+    "image": "File:കൈതച്ചക്ക.jpg",
+    "license": "CC BY 3.0",
+    "artist": "Suniltg at Malayalam Wikipedia"
+  },
+  "airplane.jpg": {
+    "image": "File:United_Airlines_Boeing_777-200_Meulemans.jpg",
+    "license": "GFDL",
+    "artist": "Jules Meulemans"
+  },
+  "helicopter.jpg": {
+    "image": "File:VH-SUF_Taking_Off.jpg",
+    "license": "CC BY 4.0",
+    "artist": "Fly45yt"
+  },
+  "ship.jpg": {
+    "image": "File:Containerterminal_Altenwerder_(Hamburg-Altenwerder).Iris_Bolten.4.phb.ajb.jpg",
+    "license": "CC BY-SA 3.0 de",
+    "artist": "Ajepbah"
+  },
+  "sampan.jpg": {
+    "image": "File:YangtzeSampan.jpg",
+    "license": "CC SA 1.0",
+    "artist": "The original uploader was Leonard G. at English Wikipedia."
+  },
+  "cyclo.jpg": {
+    "image": "File:Bangladeshi_style_Rickshaw.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Liftarn"
+  },
+  "cow.jpg": {
+    "image": "File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Kim Hansen"
+  },
+  "train.jpg": {
+    "image": "File:Поезд_на_фоне_горы_Шатрище._Воронежская_область.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Алексей Задонский"
+  },
+  "boat.jpg": {
+    "image": "File:Motorboat_at_Kankaria_lake.JPG",
+    "license": "CC BY-SA 3.0",
+    "artist": "Kondicherry"
+  }
+}

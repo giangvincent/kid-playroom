@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { BOARD_SIZES, targetCountFor } from "./boardSize";
 import { buildAnimalScene, countTargets } from "./animalScene";
 
 function seededRng(seed: number) {
@@ -14,13 +15,13 @@ const POOL = ["cat", "dog", "fish", "bird", "frog", "rabbit"] as const;
 describe("buildAnimalScene", () => {
   it("places exactly the expected number of targets", () => {
     for (let seed = 0; seed < 20; seed += 1) {
-      const scene = buildAnimalScene(POOL, seededRng(seed));
+      const scene = buildAnimalScene(POOL, 12, seededRng(seed));
       expect(countTargets(scene.tiles, scene.target)).toBe(scene.targetCount);
     }
   });
 
   it("fills the board and only uses pool sprites", () => {
-    const scene = buildAnimalScene(POOL, seededRng(3));
+    const scene = buildAnimalScene(POOL, 12, seededRng(3));
     expect(scene.tiles).toHaveLength(12);
     for (const tile of scene.tiles) {
       expect(POOL).toContain(tile.sprite);
@@ -28,14 +29,29 @@ describe("buildAnimalScene", () => {
   });
 
   it("never repeats an id", () => {
-    const ids = buildAnimalScene(POOL, seededRng(4)).tiles.map((t) => t.id);
+    const ids = buildAnimalScene(POOL, 12, seededRng(4)).tiles.map((t) => t.id);
     expect(new Set(ids).size).toBe(ids.length);
   });
 
   it("is deterministic for a given RNG", () => {
-    expect(buildAnimalScene(POOL, seededRng(8))).toEqual(
-      buildAnimalScene(POOL, seededRng(8)),
+    expect(buildAnimalScene(POOL, 12, seededRng(8))).toEqual(
+      buildAnimalScene(POOL, 12, seededRng(8)),
     );
+  });
+});
+
+describe("buildAnimalScene at every board size", () => {
+  it("builds exactly the requested tiles and the derived targets", () => {
+    for (const size of BOARD_SIZES) {
+      const scene = buildAnimalScene(POOL, size, seededRng(size));
+      expect(scene.tiles).toHaveLength(size);
+      expect(scene.targetCount).toBe(targetCountFor(size));
+      expect(countTargets(scene.tiles, scene.target)).toBe(targetCountFor(size));
+      expect(new Set(scene.tiles.map((tile) => tile.id)).size).toBe(size);
+      for (const tile of scene.tiles) {
+        expect(POOL).toContain(tile.sprite);
+      }
+    }
   });
 });
 

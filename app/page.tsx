@@ -29,7 +29,7 @@ export default function ParentPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col gap-8 p-6">
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col gap-8 p-6">
       <h1 className="text-4xl font-bold">{APP_NAME}</h1>
       <PixelButton
         className="min-h-24 text-3xl"

@@ -396,5 +396,130 @@ pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and
   pass; browser check confirms the label follows enter/exit events and
   re-reads correctly on every navigation.
 - NOT yet verified (needs the parent's devices): the actual praise playback
+  (Sprint 6 tasks appended below)
+
+## Sprint 6 tasks
+
+- [x] Task S6-P1: Square imagery + new photos
+  - Acceptance: fetch script gains VN-first query chains, licence filter,
+    sips square crop ≤ 640 px; 6 new animal, 18 fruit/veg, 18 vehicle jpgs
+    + icon-fruit/icon-vehicle svg downloaded; existing photos square-cropped;
+    docs/ASSETS.md regenerated.
+  - Verify: sips dims check + contact sheet eyeball
+  - Files: scripts/fetch-images.mjs, public/assets/*, docs/ASSETS.md
+- [x] Task S6-P2: Voice clips for every new item
+  - Acceptance: 84 new clips (42 labels + 42 goals) generated in the same
+    neural voice and committed.
+  - Verify: ls public/speech | wc + speech-files test
+  - Files: scripts/gen-speech.mjs, public/speech/*
+- [x] Task S6-P3: Rau quả & Xe cộ games
+  - Acceptance: assets/labels/name lists for 12 animals + 18 + 18 items;
+    FruitGame/VehicleGame components reuse buildAnimalScene; registry
+    entries with icons; grid + toggles pick them up.
+  - Verify: npm run typecheck && npm run test
+  - Files: lib/assets.ts, lib/labels.ts, lib/labels.test.ts, 2 components,
+    lib/games/registry.ts, lib/speech-files.test.ts
+- [x] Task S6-P4: SW precache
+  - Acceptance: sw.js precaches /play/fruit, /play/vehicle, all new images
+    and clips; cache bumped to v7.
+  - Verify: rg counts + offline build
+  - Files: public/sw.js
+- [x] Task S6-P5: Verification
+  - Acceptance: gates pass; browser smoke of both new games (goal speech,
+    tap speech, praise, win, toggles).
+  - Verify: npm run typecheck && npm run lint && npm run test && npm run build
+  - Files: none
   + advance-after-praise pacing on a real screen, pop animation feel, and an
   airplane-mode run pulling the 3 new clips through the v6 cache.
+
+## Sprint 6 verification log (2026-10-08)
+
+- S6-P1 imagery: 48 photos (6 original + 42 new) all 1:1 and <= 640 px
+  (checked with sips); 2 new Twemoji game icons; docs/ASSETS.md regenerated.
+  Fixed a latent bug in scripts/fetch-images.mjs: searchPhoto() referenced an
+  out-of-scope `item`, so the VN-context Commons search silently threw and
+  every item fell back to the article lead image. Now takes the item.
+- S6-P2 voice: 84 new clips generated with vi-VN-HoaiMyNeural (edge-tts), 127
+  total; the speech-files test asserts all 127 exist on disk.
+- S6-P3 code: asset map + ANIMAL_NAMES (now 12) + FRUIT_VEG_NAMES (18) +
+  VEHICLE_NAMES (18); label maps + fruitVegLabel/vehicleLabel lookups;
+  registry gains fruit/vehicle. Deviation from "thin clone": AnimalGame's board
+  was extracted into one shared components/games/find/FindGame.tsx, so
+  AnimalGame/FruitGame/VehicleGame are 5-line wrappers over it (less code than
+  three near-identical copies). Behaviour of the animal game is unchanged.
+- S6-P4 sw.js: precache lists regenerated from disk (63 assets, 127 clips),
+  /play/fruit + /play/vehicle added, cache bumped v6 -> v7.
+- S6-P5 gates: typecheck / lint / test (49) / build all pass clean; build
+  prerenders 8 game routes.
+- Browser smoke (production server, headless Chromium): grid lists all 8 games
+  including Rau quả and Xe cộ; Parent Mode toggles list both; /play/fruit and
+  /play/vehicle render 12 tiles, 3 targets, 0 broken images, and play through
+  to the "Hoan hô!" celebration on pointerup; a goal clip
+  (/speech/hai-the-giong-nhau-o-dau.mp3) is served 200; the animal game still
+  wins with the 12-animal pool.
+- NOT yet verified (needs the parent's devices): the real iPad/Android pass —
+  audible voice quality, square-crop framing on a real screen, and an
+  airplane-mode run through the v7 cache.
+- Uncommitted stray artifacts in public/assets: manifest.json (the fetch
+  script's download cache — useful if re-running the script) and
+  contact-sheet.html (an S6-P1 eyeball scratch file). Neither is referenced by
+  the app; decide whether to commit manifest.json or gitignore both.
+
+## Sprint 7 tasks
+
+- [x] Task S7-P1: Board-size model
+  - Acceptance: lib/config.ts exports BOARD_SIZES (4,6,9,12,16) and
+    findBoardSize (default 12); parseConfig rejects values outside the set;
+    buildAnimalScene(pool, tileCount, rng) yields exactly tileCount tiles and
+    max(1, round(tileCount/4)) targets, ids unique, pool-only; a pure helper
+    maps a size to { cols, rows }.
+  - Verify: npm run test
+  - Files: lib/config.ts, lib/storage.ts, lib/storage.test.ts,
+    lib/logic/animalScene.ts, lib/logic/animalScene.test.ts,
+    lib/logic/boardSize.ts, lib/logic/boardSize.test.ts
+- [x] Task S7-P2: FindGame wiring + board CSS
+  - Acceptance: FindGame reads findBoardSize from useConfig(), passes the tile
+    count to buildAnimalScene, and sets --cols/--rows on the grid; .board-tile
+    sizes from those vars so 4/6/9/12/16 all fit without scrolling and stay
+    >= 64 px; tap/speech/praise behaviour unchanged.
+  - Verify: npm run typecheck && browser smoke at all 5 sizes
+  - Files: components/games/find/FindGame.tsx, app/globals.css
+- [x] Task S7-P3: Homepage blocks
+  - Acceptance: GameToggles renders a block grid (icon + title + Bật/Tắt) not
+    a full-width list; SettingsForm renders its actions as blocks; a new
+    BoardSizeSetting block offers the 5 sizes and persists the pick; toggle,
+    sound and change-PIN behaviour unchanged.
+  - Verify: npm run typecheck && npm run lint && browser check
+  - Files: components/parent/GameToggles.tsx, components/parent/SettingsForm.tsx,
+    components/parent/BoardSizeSetting.tsx, app/page.tsx
+- [x] Task S7-P4: Verification
+  - Acceptance: typecheck / lint / test / build pass; browser smoke: each size
+    renders and fits, the size persists across reload, toggles and settings
+    still work.
+  - Verify: npm run typecheck && npm run lint && npm run test && npm run build
+  - Files: none
+
+## Sprint 7 verification log (2026-10-08)
+
+- Gates: typecheck / lint / test (57, +8) / build all pass clean.
+- Unit tests: `boardSize` (offered sizes, layout per size, target mapping),
+  `animalScene` at every size, and `storage` rejecting an out-of-range
+  `findBoardSize`.
+- Browser smoke (headless Chromium, isolated production build on :3100):
+  - Parent Mode renders the games as an 8-block grid and the Cài đặt actions
+    as blocks; the Số ô row offers 5 chips; clicking "9" persists it
+    (localStorage 9 and aria-pressed true after reload).
+  - `/play/animal` at 4/6/9/12/16 renders exactly that many tiles, columns
+    2/3/3/4/4 and targets 1/2/2/3/4 (counter "0 / n" and "n / n").
+  - Tiles: 108-192 px at 1280x800, 72-144 px at 390x844 — all >= 64 px; no
+    vertical overflow and no board-level horizontal overflow at either size.
+  - Playing each size to the win: all five boards reach "Hoan hô!" with no
+    page errors.
+- Deviation from the draft (recorded in SPEC.md 18.4): board tiles bound width
+  and height on separate axes (`74vw` / `54dvh`) instead of `vmin`, which sized
+  too conservatively on a tall narrow phone; Matching/Memory keep the original
+  `.board-tile` sizing under a `.find-board` scope.
+- Found, pre-existing and NOT introduced here: the GameShell header overflows
+  ~163 px on a 390 px viewport (identical on the unchanged `/play/memory` and
+  `/play/matching`). Out of scope for Sprint 7; flag to the parent.
+

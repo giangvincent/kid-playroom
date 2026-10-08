@@ -260,3 +260,76 @@ hook, and the padding reserved for it.
   ponytail ceiling in lib/speech.ts.
 - Removing the corner drops one exit path -> the PIN-gated "Về nhà" button
   and fullscreen-out remain; SPEC section 16 documents the override.
+
+---
+
+# Sprint 6 Plan — Square Imagery, More Animals, Rau quả & Xe cộ
+
+Derived from SPEC.md section 17. Same conventions as earlier sprints.
+
+## Strategy
+
+Assets first (script-extended fetch + crop + contact-sheet eyeball), then
+clips (one generator run), then thin game components + registry wiring,
+then sw.js list regeneration + tests, then gates and a browser smoke. The
+scene engine is reused untouched.
+
+    S6-P1 fetch script extension ──► 42 jpg + 2 svg + ASSETS.md
+    S6-P2 gen-speech extension ──► 84 new clips (network)
+    S6-P3 code wiring ──► assets/labels/2 games/registry
+    S6-P4 sw.js regeneration + tests
+    S6-P5 gates + browser smoke of both new games
+
+## Verification Checkpoints
+
+- CP1 (after S6-P1): every new file square ≤ 640 px; contact sheet OK;
+  ASSETS.md lists all.
+- CP2 (after S6-P2): speech-files test passes with 127 phrases.
+- CP3 (after S6-P5): gates pass; both new games playable; toggles list them.
+
+## Risks
+
+- Commons search top hits can be odd/wrong subject -> query chains +
+  contact-sheet eyeball; bad picks swapped for the next candidate.
+- sips center-crop can behead tall subjects -> verify visually, adjust the
+  source file choice when it matters.
+
+---
+
+# Sprint 7 Plan — Board-Size Setting, Homepage Blocks
+
+Derived from SPEC.md section 18 (pending approval). Tasks live in tasks/todo.md.
+
+## Strategy
+
+One small pure seam first (board size -> layout/targets), then thread the value
+through config -> FindGame, then the two UI reskins (both purely presentational).
+Board sizing is CSS-custom-property driven so no JS measuring is needed.
+
+    S7-P1 board-size model ──► config + storage + animalScene + tests
+    S7-P2 FindGame wiring ──► read config, set --cols/--rows, globals.css
+    S7-P3 homepage blocks ──► GameToggles grid, SettingsForm grid, BoardSizeSetting
+    S7-P4 verification ──► gates + browser smoke at all 5 sizes
+
+P1 is foundational; P2 depends on P1. P3 is independent of P2, but its new
+BoardSizeSetting needs P1's config field.
+
+## Verification Checkpoints
+
+- CP1 (after S7-P1): tests green — every size builds a scene with the exact
+  tile/target counts; an out-of-range `findBoardSize` falls back to 12.
+- CP2 (after S7-P2): the three find-games render 4/6/9/12/16 tiles and fit the
+  viewport without scrolling; existing installs still render 12 tiles / 3
+  targets.
+- CP3 (after S7-P3): Parent Mode shows games + settings as block grids; the
+  Số ô control persists the choice across reload.
+- CP4 (after S7-P4): typecheck / lint / test / build pass.
+
+## Risks
+
+- 16 tiles on a small landscape viewport -> count-aware `vmin` sizing tuned at
+  CP2, checked at a phone-sized viewport.
+- Adding a config field -> no key bump; `parseConfig` defaults fill it, and the
+  storage round-trip test is updated.
+- Block reskin touching parent logic -> toggle/sound/PIN logic is untouched;
+  only markup and classes change.

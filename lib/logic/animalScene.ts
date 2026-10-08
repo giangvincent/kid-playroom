@@ -1,4 +1,5 @@
 import type { AssetName } from "@/lib/assets";
+import { targetCountFor } from "./boardSize";
 import { shuffle } from "./shuffle";
 
 export type SceneTile = {
@@ -13,22 +14,22 @@ export type AnimalScene = {
 };
 
 const KINDS = 3;
-const TARGET_COUNT = 3;
-const TILE_COUNT = 12;
 
 export function buildAnimalScene(
   pool: readonly AssetName[],
+  tileCount: number,
   rng: () => number = Math.random,
 ): AnimalScene {
+  const targetCount = targetCountFor(tileCount);
   const kinds = shuffle(pool, rng).slice(0, KINDS);
   const target = kinds[0];
   const distractors = kinds.slice(1);
 
   const sprites: AssetName[] = Array.from(
-    { length: TARGET_COUNT },
+    { length: targetCount },
     () => target,
   );
-  while (sprites.length < TILE_COUNT) {
+  while (sprites.length < tileCount) {
     const pick = distractors[Math.floor(rng() * distractors.length)];
     sprites.push(pick ?? target);
   }
@@ -38,7 +39,7 @@ export function buildAnimalScene(
     sprite,
   }));
 
-  return { target, tiles, targetCount: TARGET_COUNT };
+  return { target, tiles, targetCount };
 }
 
 export function countTargets(

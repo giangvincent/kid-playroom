@@ -1,9 +1,11 @@
 import { AnimalGame } from "@/components/games/animal/AnimalGame";
 import { ColorGame } from "@/components/games/color/ColorGame";
 import { DrawingGame } from "@/components/games/drawing/DrawingGame";
+import { FruitGame } from "@/components/games/fruit/FruitGame";
 import { MatchingGame } from "@/components/games/matching/MatchingGame";
 import { MemoryGame } from "@/components/games/memory/MemoryGame";
 import { SizeGame } from "@/components/games/size/SizeGame";
+import { VehicleGame } from "@/components/games/vehicle/VehicleGame";
 import type { GameDefinition } from "./types";
 
 /** Single source of truth for the games in the playroom, in display order. */
@@ -25,6 +27,18 @@ export const GAMES: readonly GameDefinition[] = [
     title: "Con vật",
     icon: "cat",
     Component: AnimalGame,
+  },
+  {
+    id: "fruit",
+    title: "Rau quả",
+    icon: "icon-fruit",
+    Component: FruitGame,
+  },
+  {
+    id: "vehicle",
+    title: "Xe cộ",
+    icon: "icon-vehicle",
+    Component: VehicleGame,
   },
   {
     id: "size",
