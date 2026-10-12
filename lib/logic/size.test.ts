@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { buildSizeRound, isCorrectChoice, SIZE_STEPS } from "./size";
+import {
+  buildCompareRound,
+  buildSizeRound,
+  isCorrectChoice,
+  SIZE_STEPS,
+} from "./size";
 
 function seededRng(seed: number) {
   let state = seed;
@@ -49,5 +54,38 @@ describe("isCorrectChoice", () => {
     expect(isCorrectChoice(round, round.correctId)).toBe(true);
     const wrong = round.items.find((item) => item.id !== round.correctId);
     expect(wrong && isCorrectChoice(round, wrong.id)).toBe(false);
+  });
+});
+
+describe("buildCompareRound", () => {
+  it("shows exactly two shapes, at least two steps apart", () => {
+    for (let seed = 0; seed < 20; seed += 1) {
+      const round = buildCompareRound(POOL, "bigger", seededRng(seed));
+      expect(round.items).toHaveLength(2);
+      const [a, b] = round.items.map((item) => item.size);
+      expect(Math.abs(a - b)).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("marks the larger shape correct in bigger mode", () => {
+    for (let seed = 0; seed < 20; seed += 1) {
+      const round = buildCompareRound(POOL, "bigger", seededRng(seed));
+      const correct = round.items.find((item) => item.id === round.correctId);
+      expect(correct?.size).toBe(Math.max(...round.items.map((i) => i.size)));
+    }
+  });
+
+  it("marks the smaller shape correct in smaller mode", () => {
+    for (let seed = 0; seed < 20; seed += 1) {
+      const round = buildCompareRound(POOL, "smaller", seededRng(seed));
+      const correct = round.items.find((item) => item.id === round.correctId);
+      expect(correct?.size).toBe(Math.min(...round.items.map((i) => i.size)));
+    }
+  });
+
+  it("keeps the mode and draws the sprite from the pool", () => {
+    const round = buildCompareRound(POOL, "smaller", seededRng(11));
+    expect(round.mode).toBe("smaller");
+    expect(POOL).toContain(round.sprite);
   });
 });

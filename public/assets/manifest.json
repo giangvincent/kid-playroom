@@ -9,55 +9,15 @@
     "license": "CC0",
     "artist": "Hungda"
   },
-  "guava.jpg": {
-    "image": "File:Ổi đào -pink guava.jpg",
-    "license": "CC BY-SA 4.0",
-    "artist": "Hungda"
-  },
-  "longan.jpg": {
-    "image": "File:Longan fruits.jpg",
-    "license": "CC0",
-    "artist": "Dinkum"
-  },
-  "mangosteen.jpg": {
-    "image": "File:Mangosteen Basket.jpg",
-    "license": "CC BY-SA 4.0",
-    "artist": "Bonneaue"
-  },
-  "lychee.jpg": {
-    "image": "File:Litchis au marché.JPG",
-    "license": "CC0",
-    "artist": "Dinkum"
-  },
-  "avocado.jpg": {
-    "image": "File:Quả bơ bán tại chợ Đà Lạt, Vietnam.JPG",
-    "license": "CC BY-SA 3.0",
-    "artist": "Hungda"
-  },
-  "motorbike.jpg": {
-    "image": "File:Motorbikes at hanoi vietnam.jpg",
-    "license": "CC BY-SA 2.0",
-    "artist": "William Whyte"
-  },
   "bus.jpg": {
     "image": "File:SAIGON SAMCO BUS VIETNAM JAN 2012 (6821384554).jpg",
     "license": "CC BY-SA 2.0",
     "artist": "calflier001"
   },
-  "firetruck.jpg": {
-    "image": "File:Fire engine ZIL-131 2009 G1.jpg",
-    "license": "Public domain",
-    "artist": "George Chernilevsky"
-  },
   "ambulance.jpg": {
     "image": "File:An Viet EcoClinic ambulance 2017.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Donald Trung"
-  },
-  "canoe.jpg": {
-    "image": "File:Long motorboat on the Chao Phraya River in Bangkok.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "Grendelkhan"
   },
   "ferry.jpg": {
     "image": "File:Dinh Vu ferry Vietnam.JPG",
@@ -69,11 +29,6 @@
     "license": "CC BY-SA 2.0",
     "artist": "calflier001"
   },
-  "chicken.jpg": {
-    "image": "File:Male_and_female_chicken_sitting_together.jpg",
-    "license": "CC BY-SA 2.0",
-    "artist": "Andrei Niemimäki from Turku, Finland"
-  },
   "dolphin.jpg": {
     "image": "File:Tursiops_truncatus_01.jpg",
     "license": "Public domain",
@@ -83,98 +38,6 @@
     "image": "File:Corl0207_(28225976491).jpg",
     "license": "CC BY 2.0",
     "artist": "NOAA Photo Library"
-  },
-  "banana.jpg": {
-    "image": "File:Bananavarieties.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "TimothyPilgrim"
-  },
-  "orange.jpg": {
-    "image": "File:Oranges_-_whole-halved-segment.jpg",
-    "license": "CC BY-SA 4.0",
-    "artist": "Ivar Leidus"
-  },
-  "watermelon.jpg": {
-    "image": "File:Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "Fred Hsu (Wikipedia:User:Fred Hsu on en.wikipedia)"
-  },
-  "dragonfruit.jpg": {
-    "image": "File:Pitaya_cross_section_ed2.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "SMasters"
-  },
-  "carrot.jpg": {
-    "image": "File:Vegetable-Carrot-Bundle-wStalks.jpg",
-    "license": "Public domain",
-    "artist": "Evan-Amos"
-  },
-  "potato.jpg": {
-    "image": "File:Patates.jpg",
-    "license": "Public domain",
-    "artist": "Scott Bauer, USDA ARS"
-  },
-  "corn.jpg": {
-    "image": "File:CookedCornOnTheCob.JPG",
-    "license": "CC BY-SA 3.0",
-    "artist": "Jonathunder"
-  },
-  "pumpkin.jpg": {
-    "image": "File:FrenchMarketPumpkinsB.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "Infrogmation of New Orleans"
-  },
-  "bicycle.jpg": {
-    "image": "File:Left_side_of_Flying_Pigeon.jpg",
-    "license": "CC BY 2.0",
-    "artist": "齐健 from Peking, People's Republic of China"
-  },
-  "truck.jpg": {
-    "image": "File:2001_Ford_F-250_Super_Duty_XL_regular_cab_flatbed,_front_left,_05-17-2025.jpg",
-    "license": "CC BY-SA 4.0",
-    "artist": "MercurySable99"
-  },
-  "_a:cat.jpg": {
-    "file": "cat.jpg",
-    "image": "Siam_lilacpoint.jpg",
-    "article": "Cat",
-    "license": "CC BY-SA 3.0",
-    "artist": "Karin Langner-Bahmann, upload von Martin Bahmann"
-  },
-  "_a:dog.jpg": {
-    "file": "dog.jpg",
-    "image": "Labrador_on_Quantock_(2175262184).jpg",
-    "article": "Labrador Retriever",
-    "license": "CC BY-SA 2.0",
-    "artist": "IDS.photos from Tiverton, UK"
-  },
-  "_a:fish.jpg": {
-    "file": "fish.jpg",
-    "image": "Gold_fish1.jpg",
-    "article": "Goldfish",
-    "license": "CC BY-SA 3.0",
-    "artist": "לינה אבוגוש"
-  },
-  "_a:bird.jpg": {
-    "file": "bird.jpg",
-    "image": "Budgerigar-male-strzelecki-qld.jpg",
-    "article": "Budgerigar",
-    "license": "GFDL 1.2",
-    "artist": "Benjamint444"
-  },
-  "_a:frog.jpg": {
-    "file": "frog.jpg",
-    "image": "European_Common_Frog_Rana_temporaria.jpg",
-    "article": "Common frog",
-    "license": "CC BY-SA 2.5",
-    "artist": "Richard Bartz, Munich aka Makro Freak Image:MFB.jpg"
-  },
-  "_a:rabbit.jpg": {
-    "file": "rabbit.jpg",
-    "image": "Oryctolagus_cuniculus_-_euqirneto_-_419737670_(cropped).jpeg",
-    "article": "European rabbit",
-    "license": "CC BY 4.0",
-    "artist": "euqirneto"
   },
   "_i:circle.svg": {
     "file": "circle.svg",
@@ -251,79 +114,221 @@
     "name": "automobile",
     "code": "1f697"
   },
-  "car.jpg": {
-    "image": "File:Creamcoffeecolor car on Vũ Phạm Hàm Street 14-02-2026 E2.jpg",
-    "license": "CC BY-SA 4.0",
-    "artist": "Hoàng Đức Xuyên T59"
-  },
-  "cablecar.jpg": {
-    "image": "File:Ba Na Resort Da Nang, Vietnam.jpg",
-    "license": "CC BY 3.0",
-    "artist": "Fa2f"
-  },
-  "duck.jpg": {
-    "image": "File:Taiwanese_duck_farm.jpg",
-    "license": "CC BY 2.0",
-    "artist": "MiNe (sfmine79) from Taipei, Taiwan"
-  },
-  "papaya.jpg": {
-    "image": "File:Carica_papaya_-_Köhler–s_Medizinal-Pflanzen-029.jpg",
-    "license": "Public domain",
-    "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen"
-  },
   "durian.jpg": {
     "image": "File:Durian_in_black.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "مانفی"
   },
-  "tomato.jpg": {
-    "image": "File:Tomato_je.jpg",
-    "license": "CC BY-SA 3.0",
-    "artist": "Softeis"
+  "_a:cat.jpg": {
+    "file": "cat.jpg",
+    "image": "File:Mèo việt nam.jpg",
+    "article": "Cat",
+    "license": "Public domain",
+    "artist": "Gienkhan at vi.wikipedia"
   },
-  "pineapple.jpg": {
-    "image": "File:കൈതച്ചക്ക.jpg",
+  "_a:dog.jpg": {
+    "file": "dog.jpg",
+    "image": "File:Phú Quốc dog.JPG",
+    "article": "Labrador Retriever",
     "license": "CC BY 3.0",
-    "artist": "Suniltg at Malayalam Wikipedia"
+    "artist": "Ngô Trung"
   },
-  "airplane.jpg": {
-    "image": "File:United_Airlines_Boeing_777-200_Meulemans.jpg",
-    "license": "GFDL",
-    "artist": "Jules Meulemans"
-  },
-  "helicopter.jpg": {
-    "image": "File:VH-SUF_Taking_Off.jpg",
-    "license": "CC BY 4.0",
-    "artist": "Fly45yt"
-  },
-  "ship.jpg": {
-    "image": "File:Containerterminal_Altenwerder_(Hamburg-Altenwerder).Iris_Bolten.4.phb.ajb.jpg",
-    "license": "CC BY-SA 3.0 de",
-    "artist": "Ajepbah"
-  },
-  "sampan.jpg": {
-    "image": "File:YangtzeSampan.jpg",
-    "license": "CC SA 1.0",
-    "artist": "The original uploader was Leonard G. at English Wikipedia."
-  },
-  "cyclo.jpg": {
-    "image": "File:Bangladeshi_style_Rickshaw.jpg",
+  "_a:fish.jpg": {
+    "file": "fish.jpg",
+    "image": "File:Koi head closeup.jpg",
+    "article": "Goldfish",
     "license": "CC BY-SA 3.0",
-    "artist": "Liftarn"
+    "artist": "unknown"
+  },
+  "_a:bird.jpg": {
+    "file": "bird.jpg",
+    "image": "File:Bianchi's Warbler, Hanoi, Vietnam 1.jpg",
+    "article": "Budgerigar",
+    "license": "CC BY-SA 4.0",
+    "artist": "Khoitran1957"
+  },
+  "_a:rabbit.jpg": {
+    "file": "rabbit.jpg",
+    "image": "File:Rabbit portrait (8189337243).jpg",
+    "article": "European rabbit",
+    "license": "CC BY 2.0",
+    "artist": "Berit from Redhill/Surrey, UK"
   },
   "cow.jpg": {
-    "image": "File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg",
+    "image": "File:Cow and bird near Huế.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Christophe95"
+  },
+  "chicken.jpg": {
+    "image": "File:A closeup of hen.JPG",
     "license": "CC BY-SA 3.0",
-    "artist": "Kim Hansen"
+    "artist": "Thamizhpparithi Maari"
+  },
+  "banana.jpg": {
+    "image": "File:Green bananas on tree Vietnam.jpg",
+    "license": "CC0",
+    "artist": "Dinkum"
+  },
+  "mangosteen.jpg": {
+    "image": "File:Purple mangosteen.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "SMasters"
+  },
+  "lychee.jpg": {
+    "image": "File:Litchi chinensis on white background.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Filo gèn'"
+  },
+  "dragonfruit.jpg": {
+    "image": "File:Dragon fruit Hylocereus Undatus (Vietnam White).jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Zenyrgarden"
+  },
+  "carrot.jpg": {
+    "image": "File:Carrot vegetable on white background.jpg",
+    "license": "Public domain",
+    "artist": "Titus Tscharntke"
+  },
+  "pumpkin.jpg": {
+    "image": "File:Pumpkin stack closeup.jpg",
+    "license": "CC0",
+    "artist": "Jeffery Martin"
+  },
+  "pineapple.jpg": {
+    "image": "File:Pineapple on White Background (51942745849).jpg",
+    "license": "CC BY 2.0",
+    "artist": "Dejan Krsmanovic"
+  },
+  "motorbike.jpg": {
+    "image": "File:Red Motorcycle in Vietnam.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Andrew Kneebone"
+  },
+  "truck.jpg": {
+    "image": "File:Da-Nang Vietnam IFA-L60-truck-01.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "CEphoto, Uwe Aranas"
+  },
+  "firetruck.jpg": {
+    "image": "File:Vietnamese fire truck.jpg",
+    "license": "CC BY 2.0",
+    "artist": "Kevin King from Pensacola, FL, US of A"
   },
   "train.jpg": {
-    "image": "File:Поезд_на_фоне_горы_Шатрище._Воронежская_область.jpg",
+    "image": "File:Hue Hoi An Train.jpg",
+    "license": "CC BY 2.0",
+    "artist": "Andy Wright from Sheffield, UK"
+  },
+  "ship.jpg": {
+    "image": "File:Cargo ship in Ha Long Bay.jpg",
     "license": "CC BY-SA 4.0",
-    "artist": "Алексей Задонский"
+    "artist": "Christophe95"
+  },
+  "cyclo.jpg": {
+    "image": "File:Cyclo Ahead, Hue, Vietnam (7073475837).jpg",
+    "license": "CC BY 2.0",
+    "artist": "David McKelvey from Brisbane, Australia"
+  },
+  "cablecar.jpg": {
+    "image": "File:Hon Thom Cable Car aerial view Phu Quoc Island Vietnam.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Vivu Vietnam"
+  },
+  "orange.jpg": {
+    "image": "File:Orange Fruit Close-up.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "freestock.ca"
+  },
+  "potato.jpg": {
+    "image": "File:Patates.jpg",
+    "license": "Public domain",
+    "artist": "Scott Bauer, USDA ARS"
+  },
+  "duck.jpg": {
+    "image": "File:Duck portrait (538681435).jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Shamil Khakirov from Ukraine"
+  },
+  "avocado.jpg": {
+    "image": "File:Avocado Whole and Crossection.jpg",
+    "license": "CC BY-SA 2.5",
+    "artist": "JJ Harrison (https://www.jjharrison.com.au/)"
+  },
+  "guava.jpg": {
+    "image": "File:Guava ID.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Sakurai Midori"
+  },
+  "papaya.jpg": {
+    "image": "File:Papaya - longitudinal section close-up view.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Ivar Leidus"
+  },
+  "corn.jpg": {
+    "image": "File:Corn on the cob (sweet corn).jpg",
+    "license": "CC0",
+    "artist": "Nutrition, Food Safety & Health"
   },
   "boat.jpg": {
-    "image": "File:Motorboat_at_Kankaria_lake.JPG",
-    "license": "CC BY-SA 3.0",
-    "artist": "Kondicherry"
+    "image": "File:20190924 Ben Tre river boat-1.jpg",
+    "license": "CC0",
+    "artist": "Balon Greyjoy"
+  },
+  "canoe.jpg": {
+    "image": "File:Speedboat offshore near Broadstairs, Kent, England.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Acabashi"
+  },
+  "tomato.jpg": {
+    "image": "File:Red tomatoes. img 02.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Dmitry Makeev"
+  },
+  "_a:frog.jpg": {
+    "file": "frog.jpg",
+    "image": "File:Closeup picture of a tree frog.jpg",
+    "article": "Common frog",
+    "license": "Public domain",
+    "artist": "Luke"
+  },
+  "watermelon.jpg": {
+    "image": "File:Fresh Watermelons Stacked.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "PAULIX04"
+  },
+  "helicopter.jpg": {
+    "image": "File:Bell 427 JA427A Shin Nihon Helicopter Co., Ltd. 2025 0130 Tokyo Heliport side view.jpg",
+    "license": "CC0",
+    "artist": "ORANGE 737"
+  },
+  "longan.jpg": {
+    "image": "File:Dimocarpus longan fruits.jpg",
+    "license": "Public domain",
+    "artist": "unknown"
+  },
+  "bicycle.jpg": {
+    "image": "File:California city bicycle side view.JPG",
+    "license": "CC BY-SA 4.0",
+    "artist": "User:Javier Carro"
+  },
+  "sampan.jpg": {
+    "image": "File:Sampan - 44452664924.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Rod Waddington"
+  },
+  "car.jpg": {
+    "image": "File:Moskvich 400 4-door sedan, Moscow, 2010. side view.jpg",
+    "license": "Public domain",
+    "artist": "Zac allan (talk)"
+  },
+  "airplane.jpg": {
+    "image": "File:VT-IKN Indigo A320-271N (Ex. VT-ITD) Right side view.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "TheYoungPilots"
+  },
+  "_i:icon-most-size.svg": {
+    "file": "icon-most-size.svg",
+    "name": "up-pointing small red triangle",
+    "code": "1f53c"
   }
 }

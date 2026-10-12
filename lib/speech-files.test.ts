@@ -8,6 +8,7 @@ import {
   PRAISE_PHRASES,
   SHAPE_LABELS,
   VEHICLE_LABELS,
+  comparePhrase,
   goalPhrase,
 } from "@/lib/labels";
 import { speechFile, speechSlug } from "@/lib/speech-files";
@@ -21,6 +22,8 @@ const GOALS = [
   ...Object.values(VEHICLE_LABELS).map(goalPhrase),
   goalPhrase("hình lớn nhất"),
   goalPhrase("hình nhỏ nhất"),
+  comparePhrase("hình lớn hơn"),
+  comparePhrase("hình nhỏ hơn"),
 ];
 
 const PHRASES = [
@@ -45,7 +48,7 @@ describe("speechSlug", () => {
 
 describe("speechFile", () => {
   it("maps every spoken phrase to a committed clip", () => {
-    expect(PHRASES).toHaveLength(127);
+    expect(PHRASES).toHaveLength(129);
     for (const phrase of PHRASES) {
       const path = speechFile(phrase);
       const file = join(import.meta.dirname, "..", "public", path);

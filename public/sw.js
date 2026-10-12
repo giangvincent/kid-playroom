@@ -1,4 +1,4 @@
-const CACHE_NAME = "playroom-v7";
+const CACHE_NAME = "playroom-v9";
 
 // Kept in sync with lib/games/registry.ts. Precaching every route (and the
 // hashed chunks each page references) lets the whole playroom run offline
@@ -13,6 +13,7 @@ const ROUTES = [
   "/play/fruit",
   "/play/vehicle",
   "/play/size",
+  "/play/most-size",
   "/play/drawing",
   "/play/memory",
 ];
@@ -28,7 +29,7 @@ const ASSET_FILES = [
   "/assets/durian.jpg", "/assets/ferry.jpg", "/assets/firetruck.jpg", "/assets/fish.jpg",
   "/assets/frog.jpg", "/assets/guava.jpg", "/assets/heart.svg", "/assets/helicopter.jpg",
   "/assets/icon-color.svg", "/assets/icon-drawing.svg", "/assets/icon-fruit.svg", "/assets/icon-matching.svg",
-  "/assets/icon-memory.svg", "/assets/icon-size.svg", "/assets/icon-vehicle.svg", "/assets/longan.jpg",
+  "/assets/icon-memory.svg", "/assets/icon-most-size.svg", "/assets/icon-size.svg", "/assets/icon-vehicle.svg", "/assets/longan.jpg",
   "/assets/lychee.jpg", "/assets/mango.jpg", "/assets/mangosteen.jpg", "/assets/motorbike.jpg",
   "/assets/orange.jpg", "/assets/papaya.jpg", "/assets/pig.jpg", "/assets/pineapple.jpg",
   "/assets/plus.svg", "/assets/potato.jpg", "/assets/pumpkin.jpg", "/assets/rabbit.jpg",
@@ -57,7 +58,7 @@ const SPEECH_CLIPS = [
   "/speech/con-meo.mp3", "/speech/con-tho-o-dau.mp3", "/speech/con-tho.mp3", "/speech/con-vit-o-dau.mp3",
   "/speech/con-vit.mp3", "/speech/cu-ca-rot-o-dau.mp3", "/speech/cu-ca-rot.mp3", "/speech/cu-khoai-tay-o-dau.mp3",
   "/speech/cu-khoai-tay.mp3", "/speech/dung-roi.mp3", "/speech/hai-the-giong-nhau-o-dau.mp3", "/speech/hinh-chu-thap.mp3",
-  "/speech/hinh-lon-nhat-o-dau.mp3", "/speech/hinh-ngoi-sao.mp3", "/speech/hinh-nho-nhat-o-dau.mp3", "/speech/hinh-tam-giac.mp3",
+  "/speech/hinh-lon-nhat-o-dau.mp3", "/speech/hinh-nao-lon-hon.mp3", "/speech/hinh-nao-nho-hon.mp3", "/speech/hinh-ngoi-sao.mp3", "/speech/hinh-nho-nhat-o-dau.mp3", "/speech/hinh-tam-giac.mp3",
   "/speech/hinh-thoi.mp3", "/speech/hinh-trai-tim.mp3", "/speech/hinh-tron-rong.mp3", "/speech/hinh-tron.mp3",
   "/speech/hinh-vuong.mp3", "/speech/mau-cam-o-dau.mp3", "/speech/mau-cam.mp3", "/speech/mau-do-o-dau.mp3",
   "/speech/mau-do.mp3", "/speech/mau-hong-o-dau.mp3", "/speech/mau-hong.mp3", "/speech/mau-nau-o-dau.mp3",

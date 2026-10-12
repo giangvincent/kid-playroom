@@ -523,3 +523,62 @@ pinning / iPad Guided Access, and confirming a Vietnamese voice is installed and
   ~163 px on a 390 px viewport (identical on the unchanged `/play/memory` and
   `/play/matching`). Out of scope for Sprint 7; flag to the parent.
 
+## Sprint 8 tasks
+
+- [x] Task S8-P1: Single-subject, Vietnam-first imagery
+  - Acceptance: every photo shows one clear object of its item; Vietnam
+    categories/searches preferred; visual contact-sheet review of all 48
+    photos; ASSETS.md regenerated; sw.js cache bumped so installs re-fetch.
+  - Verify: contact-sheet review + zero broken images + full gate
+  - Files: scripts/fetch-images.mjs, public/assets/*.jpg, docs/ASSETS.md,
+    public/sw.js
+
+## Sprint 8 verification log (2026-10-12)
+
+- Pipeline: per-item title `match`, Vietnam categories, VN+focused scoring,
+  hard BAD_SUBJECT/avoid filters, exact-title blocks; rate-limit backoff.
+- Iterations: 9 fetch rounds; each round re-fetched only the visually rejected
+  items (cooked frogs, rubber duck, Agent-Orange Huey, drone "helicopter",
+  pineapple cake, papaya botanical plate, POW-camp potatoes, empty runway for
+  airplane, rainbow for car, road for longan, sepia sampan, ...).
+- Result: 39/48 photos re-sourced, 10 keepers; Vietnam context on cat, dog,
+  bird, cow, chicken, motorbike, cyclo, truck, firetruck, train, ferry, cable
+  car, boat, ship, bus, coach, ambulance, banana, dragonfruit, longan; clean
+  worldwide single-subject fallbacks elsewhere.
+- Gates: typecheck / lint / test (57) / build pass; zero broken images on
+  /play and all five games (headless Chromium, production build).
+- sw.js cache bumped v7 -> v8.
+
+## Sprint 9 tasks
+
+- [x] Task S9-P1: Bigger/smaller `size` + new `most-size` game
+  - Acceptance: `/play/size` is a pairwise comparison ("Hình nào lớn hơn?" /
+    "Hình nào nhỏ hơn?", two shapes, never a near-tie); the biggest/smallest
+    board moves to the new game `most-size` ("To nhất"); both appear in the
+    grid and toggles; new clips and icon committed; sw.js precaches them.
+  - Verify: 3 rounds + win on both games in the browser; full gate
+  - Files: lib/logic/size.ts (+test), lib/labels.ts (+test),
+    components/games/size/SizeBoard.tsx, components/games/size/SizeGame.tsx,
+    components/games/most-size/MostSizeGame.tsx, lib/games/registry.ts,
+    lib/assets.ts, scripts/gen-speech.mjs, scripts/fetch-images.mjs,
+    lib/speech-files.test.ts, public/speech/*.mp3,
+    public/assets/icon-most-size.svg, public/sw.js
+
+## Sprint 9 verification log (2026-10-12)
+
+- Logic: `buildCompareRound` picks two of SIZE_STEPS at least two steps apart
+  and marks the larger/smaller correct; 4 new unit tests; 62 tests total.
+- Voice: 2 new clips generated with vi-VN-HoaiMyNeural (12.1 KB each), 129
+  phrases; `speech-files.test.ts` asserts every phrase has a clip on disk.
+- Icon: Twemoji 1f53c downloaded as `icon-most-size.svg`; ASSETS.md lists it.
+- sw.js: `/play/most-size` + the icon + both clips precached; cache v8 -> v9.
+- Browser (production build): grid = Ghép đôi, Màu sắc, Con vật, Rau quả,
+  Xe cộ, Kích thước, To nhất, Vẽ, Trí nhớ. `/play/size` rounds read
+  "Hình nào lớn hơn? / nhỏ hơn?" with 2 shapes (e.g. 189 px vs 117 px) and win
+  in 3 rounds; `/play/most-size` rounds read "Hình lớn nhất ở đâu? / nhỏ nhất"
+  with 4 shapes and win; no page errors, 0 broken images.
+- Gates: typecheck / lint / test (62) / build pass; 9 game routes prerendered.
+- Gotcha: an orphaned `next start` from the earlier imagery check still held
+  port 3100 and served a stale build, which briefly faked a failure — the test
+  servers are now killed by port.
+

@@ -4,6 +4,7 @@ import { DrawingGame } from "@/components/games/drawing/DrawingGame";
 import { FruitGame } from "@/components/games/fruit/FruitGame";
 import { MatchingGame } from "@/components/games/matching/MatchingGame";
 import { MemoryGame } from "@/components/games/memory/MemoryGame";
+import { MostSizeGame } from "@/components/games/most-size/MostSizeGame";
 import { SizeGame } from "@/components/games/size/SizeGame";
 import { VehicleGame } from "@/components/games/vehicle/VehicleGame";
 import type { GameDefinition } from "./types";
@@ -45,6 +46,12 @@ export const GAMES: readonly GameDefinition[] = [
     title: "Kích thước",
     icon: "icon-size",
     Component: SizeGame,
+  },
+  {
+    id: "most-size",
+    title: "To nhất",
+    icon: "icon-most-size",
+    Component: MostSizeGame,
   },
   {
     id: "drawing",

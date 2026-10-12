@@ -99,6 +99,8 @@ const PHRASES = [
   ...VEHICLES.map(goal),
   goal("hình lớn nhất"),
   goal("hình nhỏ nhất"),
+  "Hình nào lớn hơn?",
+  "Hình nào nhỏ hơn?",
 ];
 
 function goal(phrase) {

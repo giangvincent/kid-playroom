@@ -128,3 +128,10 @@ export function goalPhrase(label: string): string {
   const capped = label.charAt(0).toUpperCase() + label.slice(1);
   return `${capped} ở đâu?`;
 }
+
+/** Comparative phrasing: "hình lớn hơn" -> "Hình nào lớn hơn?" */
+export function comparePhrase(label: string): string {
+  const [head, ...rest] = label.split(" ");
+  const capped = head.charAt(0).toUpperCase() + head.slice(1);
+  return `${capped} nào ${rest.join(" ")}?`;
+}

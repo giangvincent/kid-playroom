@@ -877,3 +877,112 @@ section.
 
 None — the two asks and the three clarifications (shared setting, scaling
 targets, Parent Mode) are settled.
+
+---
+
+## 19. Sprint 8 — Single-Subject, Vietnam-First Imagery
+
+Requested by the parent after Sprint 7. Two rules for every photo.
+
+### 19.1 Objective
+
+1. **One object per photo.** Each image focuses on a single subject of the item
+   it teaches — no markets, flocks, traffic scenes, collages, botanical plates,
+   statues or cooked dishes.
+2. **Vietnam context beats worldwide.** Vietnam Commons categories first
+   (`Cats of Vietnam`, `Cattle in Vietnam`, `Motorcycles in Vietnam`, …), then
+   Vietnam-flavoured searches; the Wikipedia lead image is only the last
+   fallback.
+
+### 19.2 Design (scripts/fetch-images.mjs)
+
+- **`match`** — a per-item regex the Commons title must satisfy, so "Cat Tien
+  Park" can never stand in for a cat.
+- **`cats`** — Vietnam categories per item; a category hit is VN context by
+  construction.
+- **Scoring** — Vietnam +40, focused wording (closeup / portrait / side view /
+  white background) +8, scene wording −30; best candidate wins.
+- **Hard filters** — `BAD_SUBJECT` (artwork, human portraits, dishes, toys…),
+  per-item `avoid` lists grown during visual review, exact-title `block` for
+  mislabelled files (a drone titled "Helicopter side view"), free licence,
+  ≥ 600×450.
+- **Visual gate** — a rendered contact sheet of all 48 photos; each round
+  re-fetches only the failures.
+
+### 19.3 Outcome
+
+- 39 of 48 photos re-sourced; 10 keepers were already single-subject
+  (mango, pig, dolphin, shark, durian, bus, coach, ambulance, ferry, car).
+- Vietnam context retained or gained: cat (Mèo việt nam), dog (Phú Quốc),
+  bird (Hà Nội), cow (Huế), chicken, duck, motorbike, cyclo, truck, firetruck,
+  train, ferry, cable car, boat, ship, bus, coach, ambulance, banana,
+  dragonfruit, longan.
+- Where Commons has no acceptable single-subject Vietnam photo (airplane,
+  helicopter, car, bicycle, fish, frog, rabbit and most cut fruit), a clean
+  worldwide photo was chosen: one clear object beats a Vietnamese scene.
+- `public/sw.js` cache bumped to v8 so installed devices re-fetch the images.
+
+### 19.4 Verification
+
+- All 48 photos reviewed on the contact sheet; zero broken images on `/play`
+  and every game page (headless Chromium, production build).
+- `typecheck` / `lint` / `test` / `build` pass.
+
+### 19.5 Boundaries (delta)
+
+- **Always:** keep every photo a real downloaded asset, attributed in
+  docs/ASSETS.md; review images visually before shipping.
+- **Ask first:** replacing the PWA app icons; adding an image source other
+  than Wikimedia Commons / Twemoji.
+- **Never:** fetch images at runtime; ship AI-generated imagery; accept a
+  multi-object scene when a single-subject photo exists.
+
+---
+
+## 20. Sprint 9 — Bigger/Smaller (`size`) and To nhất (`most-size`)
+
+Requested by the parent.
+
+### 20.1 Objective
+
+1. **`/play/size` ("Kích thước") changes rule.** Instead of "tap the
+   biggest / smallest", each round is a pairwise comparison — **"Hình nào lớn
+   hơn?"** / **"Hình nào nhỏ hơn?"** — with two shapes, exactly one of which
+   answers the question.
+2. **The old rule moves to a new game, To nhất (`most-size`).** Four shapes,
+   "Hình lớn nhất ở đâu?" / "Hình nhỏ nhất ở đâu?", unchanged behaviour.
+
+Both games appear in the child grid and the parent toggles (registry-driven).
+
+### 20.2 Design
+
+- `lib/logic/size.ts` keeps `buildSizeRound` (four sizes, one extreme) and gains
+  `buildCompareRound(pool, "bigger" | "smaller", rng)`, which returns two items
+  whose sizes are **at least two steps apart** — a comparison is never a
+  near-tie — with the correct id being the larger (bigger) or smaller (smaller).
+- One shared board, `components/games/size/SizeBoard.tsx`, is parameterised by
+  `kind: "compare" | "superlative"`: it selects the builder, the round order
+  (bigger, smaller, bigger) and the wording. `SizeGame` and `MostSizeGame` are
+  thin wrappers, the same pattern as `FindGame`.
+- `lib/labels.ts` gains `comparePhrase("hình lớn hơn") -> "Hình nào lớn hơn?"`.
+- Voice: two new clips (`hinh-nao-lon-hon.mp3`, `hinh-nao-nho-hon.mp3`) in the
+  same vi-VN-HoaiMyNeural voice — **129 phrases**; `scripts/gen-speech.mjs` and
+  `lib/speech-files.test.ts` list them.
+- A new Twemoji icon (`icon-most-size`) labels the To nhất card.
+- `public/sw.js` precaches `/play/most-size`, the new icon and both clips, and
+  the cache is bumped to v9.
+
+### 20.3 Verification
+
+- Browser (production build): the grid lists nine games; `/play/size` shows two
+  shapes per round with the "…hơn?" goals and wins in three rounds;
+  `/play/most-size` shows four shapes with the "…nhất ở đâu?" goals and wins;
+  no page errors, no broken images.
+- `typecheck` / `lint` / `test` (62) / `build` pass; the build prerenders nine
+  game routes.
+
+### 20.4 Boundaries (delta)
+
+- **Always:** keep tap targets ≥ 64 px; keep the praise-then-advance pacing.
+- **Never:** let a comparison round be a near-tie (sizes stay ≥ 2 steps apart);
+  reuse the comparative wording for the superlative board or vice versa.

@@ -6,6 +6,7 @@ export const ASSETS = {
   "icon-matching": "/assets/icon-matching.svg",
   "icon-color": "/assets/icon-color.svg",
   "icon-size": "/assets/icon-size.svg",
+  "icon-most-size": "/assets/icon-most-size.svg",
   "icon-drawing": "/assets/icon-drawing.svg",
   "icon-memory": "/assets/icon-memory.svg",
   "icon-fruit": "/assets/icon-fruit.svg",

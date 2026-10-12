@@ -14,6 +14,7 @@ import {
   VEHICLE_LABELS,
   animalLabel,
   colorLabel,
+  comparePhrase,
   fruitVegLabel,
   goalPhrase,
   shapeLabel,
@@ -81,5 +82,12 @@ describe("goalPhrase", () => {
     expect(goalPhrase("quả dứa")).toBe("Quả dứa ở đâu?");
     expect(goalPhrase("xe máy")).toBe("Xe máy ở đâu?");
     expect(goalPhrase("hình lớn nhất")).toBe("Hình lớn nhất ở đâu?");
+  });
+});
+
+describe("comparePhrase", () => {
+  it("builds the which-one question form", () => {
+    expect(comparePhrase("hình lớn hơn")).toBe("Hình nào lớn hơn?");
+    expect(comparePhrase("hình nhỏ hơn")).toBe("Hình nào nhỏ hơn?");
   });
 });

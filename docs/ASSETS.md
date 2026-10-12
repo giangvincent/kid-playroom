@@ -1,6 +1,9 @@
 # Asset sources
 
 All game imagery is downloaded from the internet (no AI-generated images).
+Photos prefer a single focused subject in a Vietnam context (Commons
+categories per item, then Vietnam-first search); the Wikipedia lead image is
+the fallback when nothing acceptable is found.
 
 Regenerate with: node scripts/fetch-images.mjs
 
@@ -8,61 +11,62 @@ Regenerate with: node scripts/fetch-images.mjs
 
 | File | Wikipedia article | Commons file | Licence | Author |
 | --- | --- | --- | --- | --- |
-| cat.jpg | [Cat](https://en.wikipedia.org/wiki/Cat) | [Siam_lilacpoint.jpg](https://commons.wikimedia.org/wiki/File:Siam_lilacpoint.jpg) | CC BY-SA 3.0 | Karin Langner-Bahmann, upload von Martin Bahmann |
-| dog.jpg | [Labrador Retriever](https://en.wikipedia.org/wiki/Labrador_Retriever) | [Labrador_on_Quantock_(2175262184).jpg](https://commons.wikimedia.org/wiki/File:Labrador_on_Quantock_(2175262184).jpg) | CC BY-SA 2.0 | IDS.photos from Tiverton, UK |
-| fish.jpg | [Goldfish](https://en.wikipedia.org/wiki/Goldfish) | [Gold_fish1.jpg](https://commons.wikimedia.org/wiki/File:Gold_fish1.jpg) | CC BY-SA 3.0 | לינה אבוגוש |
-| bird.jpg | [Budgerigar](https://en.wikipedia.org/wiki/Budgerigar) | [Budgerigar-male-strzelecki-qld.jpg](https://commons.wikimedia.org/wiki/File:Budgerigar-male-strzelecki-qld.jpg) | GFDL 1.2 | Benjamint444 |
-| frog.jpg | [Common frog](https://en.wikipedia.org/wiki/Common_frog) | [European_Common_Frog_Rana_temporaria.jpg](https://commons.wikimedia.org/wiki/File:European_Common_Frog_Rana_temporaria.jpg) | CC BY-SA 2.5 | Richard Bartz, Munich aka Makro Freak Image:MFB.jpg |
-| rabbit.jpg | [European rabbit](https://en.wikipedia.org/wiki/European_rabbit) | [Oryctolagus_cuniculus_-_euqirneto_-_419737670_(cropped).jpeg](https://commons.wikimedia.org/wiki/File:Oryctolagus_cuniculus_-_euqirneto_-_419737670_(cropped).jpeg) | CC BY 4.0 | euqirneto |
+| cat.jpg | [Cat](https://en.wikipedia.org/wiki/Cat) | [File:Mèo việt nam.jpg](https://commons.wikimedia.org/wiki/File:File%3AM%C3%A8o%20vi%E1%BB%87t%20nam.jpg) | Public domain | Gienkhan at vi.wikipedia |
+| dog.jpg | [Labrador Retriever](https://en.wikipedia.org/wiki/Labrador_Retriever) | [File:Phú Quốc dog.JPG](https://commons.wikimedia.org/wiki/File:File%3APh%C3%BA%20Qu%E1%BB%91c%20dog.JPG) | CC BY 3.0 | Ngô Trung |
+| fish.jpg | [Goldfish](https://en.wikipedia.org/wiki/Goldfish) | [File:Koi head closeup.jpg](https://commons.wikimedia.org/wiki/File:File%3AKoi%20head%20closeup.jpg) | CC BY-SA 3.0 | unknown |
+| bird.jpg | [Budgerigar](https://en.wikipedia.org/wiki/Budgerigar) | [File:Bianchi's Warbler, Hanoi, Vietnam 1.jpg](https://commons.wikimedia.org/wiki/File:File%3ABianchi's%20Warbler%2C%20Hanoi%2C%20Vietnam%201.jpg) | CC BY-SA 4.0 | Khoitran1957 |
+| frog.jpg | [Common frog](https://en.wikipedia.org/wiki/Common_frog) | [File:Closeup picture of a tree frog.jpg](https://commons.wikimedia.org/wiki/File:File%3ACloseup%20picture%20of%20a%20tree%20frog.jpg) | Public domain | Luke |
+| rabbit.jpg | [European rabbit](https://en.wikipedia.org/wiki/European_rabbit) | [File:Rabbit portrait (8189337243).jpg](https://commons.wikimedia.org/wiki/File:File%3ARabbit%20portrait%20(8189337243).jpg) | CC BY 2.0 | Berit from Redhill/Surrey, UK |
 
-## New item photos, square crops (public/assets/*.jpg)
+## Item photos, square crops (public/assets/*.jpg)
 
-Commons search, Vietnam-context queries first; centre-cropped to 1:1.
+Commons: Vietnam-context category or search first, single-subject candidates
+preferred; centre-cropped to 1:1.
 
 | File | Commons file | Licence | Author |
 | --- | --- | --- | --- |
-| chicken.jpg | [File:Male_and_female_chicken_sitting_together.jpg](https://commons.wikimedia.org/wiki/File%3AMale_and_female_chicken_sitting_together.jpg) | CC BY-SA 2.0 | Andrei Niemimäki from Turku, Finland |
-| duck.jpg | [File:Taiwanese_duck_farm.jpg](https://commons.wikimedia.org/wiki/File%3ATaiwanese_duck_farm.jpg) | CC BY 2.0 | MiNe (sfmine79) from Taipei, Taiwan |
+| cow.jpg | [File:Cow and bird near Huế.jpg](https://commons.wikimedia.org/wiki/File%3ACow_and_bird_near_Hu%E1%BA%BF.jpg) | CC BY-SA 4.0 | Christophe95 |
+| chicken.jpg | [File:A closeup of hen.JPG](https://commons.wikimedia.org/wiki/File%3AA_closeup_of_hen.JPG) | CC BY-SA 3.0 | Thamizhpparithi Maari |
+| duck.jpg | [File:Duck portrait (538681435).jpg](https://commons.wikimedia.org/wiki/File%3ADuck_portrait_(538681435).jpg) | CC BY-SA 2.0 | Shamil Khakirov from Ukraine |
 | pig.jpg | [File:Black pig in Sa Pa, Vietnam.jpg](https://commons.wikimedia.org/wiki/File%3ABlack_pig_in_Sa_Pa%2C_Vietnam.jpg) | CC BY 2.0 | Everjean from Antwerp, Belgium |
 | dolphin.jpg | [File:Tursiops_truncatus_01.jpg](https://commons.wikimedia.org/wiki/File%3ATursiops_truncatus_01.jpg) | Public domain | NASA |
 | shark.jpg | [File:Corl0207_(28225976491).jpg](https://commons.wikimedia.org/wiki/File%3ACorl0207_(28225976491).jpg) | CC BY 2.0 | NOAA Photo Library |
 | mango.jpg | [File:Xoài cát Hòa Lộc.JPG](https://commons.wikimedia.org/wiki/File%3AXo%C3%A0i_c%C3%A1t_H%C3%B2a_L%E1%BB%99c.JPG) | CC0 | Hungda |
-| banana.jpg | [File:Bananavarieties.jpg](https://commons.wikimedia.org/wiki/File%3ABananavarieties.jpg) | CC BY-SA 3.0 | TimothyPilgrim |
-| orange.jpg | [File:Oranges_-_whole-halved-segment.jpg](https://commons.wikimedia.org/wiki/File%3AOranges_-_whole-halved-segment.jpg) | CC BY-SA 4.0 | Ivar Leidus |
-| guava.jpg | [File:Ổi đào -pink guava.jpg](https://commons.wikimedia.org/wiki/File%3A%E1%BB%94i_%C4%91%C3%A0o_-pink_guava.jpg) | CC BY-SA 4.0 | Hungda |
-| watermelon.jpg | [File:Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg](https://commons.wikimedia.org/wiki/File%3ATaiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg) | CC BY-SA 3.0 | Fred Hsu (Wikipedia:User:Fred Hsu on en.wikipedia) |
-| papaya.jpg | [File:Carica_papaya_-_Köhler–s_Medizinal-Pflanzen-029.jpg](https://commons.wikimedia.org/wiki/File%3ACarica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg) | Public domain | Franz Eugen Köhler, Köhler's Medizinal-Pflanzen |
-| longan.jpg | [File:Longan fruits.jpg](https://commons.wikimedia.org/wiki/File%3ALongan_fruits.jpg) | CC0 | Dinkum |
-| mangosteen.jpg | [File:Mangosteen Basket.jpg](https://commons.wikimedia.org/wiki/File%3AMangosteen_Basket.jpg) | CC BY-SA 4.0 | Bonneaue |
+| banana.jpg | [File:Green bananas on tree Vietnam.jpg](https://commons.wikimedia.org/wiki/File%3AGreen_bananas_on_tree_Vietnam.jpg) | CC0 | Dinkum |
+| orange.jpg | [File:Orange Fruit Close-up.jpg](https://commons.wikimedia.org/wiki/File%3AOrange_Fruit_Close-up.jpg) | CC BY-SA 3.0 | freestock.ca |
+| guava.jpg | [File:Guava ID.jpg](https://commons.wikimedia.org/wiki/File%3AGuava_ID.jpg) | CC BY-SA 3.0 | Sakurai Midori |
+| watermelon.jpg | [File:Fresh Watermelons Stacked.jpg](https://commons.wikimedia.org/wiki/File%3AFresh_Watermelons_Stacked.jpg) | CC BY-SA 4.0 | PAULIX04 |
+| papaya.jpg | [File:Papaya - longitudinal section close-up view.jpg](https://commons.wikimedia.org/wiki/File%3APapaya_-_longitudinal_section_close-up_view.jpg) | CC BY-SA 4.0 | Ivar Leidus |
+| longan.jpg | [File:Dimocarpus longan fruits.jpg](https://commons.wikimedia.org/wiki/File%3ADimocarpus_longan_fruits.jpg) | Public domain | unknown |
+| mangosteen.jpg | [File:Purple mangosteen.jpg](https://commons.wikimedia.org/wiki/File%3APurple_mangosteen.jpg) | CC BY-SA 3.0 | SMasters |
 | durian.jpg | [File:Durian_in_black.jpg](https://commons.wikimedia.org/wiki/File%3ADurian_in_black.jpg) | CC BY-SA 4.0 | مانفی |
-| lychee.jpg | [File:Litchis au marché.JPG](https://commons.wikimedia.org/wiki/File%3ALitchis_au_march%C3%A9.JPG) | CC0 | Dinkum |
-| dragonfruit.jpg | [File:Pitaya_cross_section_ed2.jpg](https://commons.wikimedia.org/wiki/File%3APitaya_cross_section_ed2.jpg) | CC BY-SA 3.0 | SMasters |
-| avocado.jpg | [File:Quả bơ bán tại chợ Đà Lạt, Vietnam.JPG](https://commons.wikimedia.org/wiki/File%3AQu%E1%BA%A3_b%C6%A1_b%C3%A1n_t%E1%BA%A1i_ch%E1%BB%A3_%C4%90%C3%A0_L%E1%BA%A1t%2C_Vietnam.JPG) | CC BY-SA 3.0 | Hungda |
-| tomato.jpg | [File:Tomato_je.jpg](https://commons.wikimedia.org/wiki/File%3ATomato_je.jpg) | CC BY-SA 3.0 | Softeis |
-| carrot.jpg | [File:Vegetable-Carrot-Bundle-wStalks.jpg](https://commons.wikimedia.org/wiki/File%3AVegetable-Carrot-Bundle-wStalks.jpg) | Public domain | Evan-Amos |
+| lychee.jpg | [File:Litchi chinensis on white background.jpg](https://commons.wikimedia.org/wiki/File%3ALitchi_chinensis_on_white_background.jpg) | CC BY-SA 4.0 | Filo gèn' |
+| dragonfruit.jpg | [File:Dragon fruit Hylocereus Undatus (Vietnam White).jpg](https://commons.wikimedia.org/wiki/File%3ADragon_fruit_Hylocereus_Undatus_(Vietnam_White).jpg) | CC BY-SA 4.0 | Zenyrgarden |
+| avocado.jpg | [File:Avocado Whole and Crossection.jpg](https://commons.wikimedia.org/wiki/File%3AAvocado_Whole_and_Crossection.jpg) | CC BY-SA 2.5 | JJ Harrison (https://www.jjharrison.com.au/) |
+| tomato.jpg | [File:Red tomatoes. img 02.jpg](https://commons.wikimedia.org/wiki/File%3ARed_tomatoes._img_02.jpg) | CC BY-SA 4.0 | Dmitry Makeev |
+| carrot.jpg | [File:Carrot vegetable on white background.jpg](https://commons.wikimedia.org/wiki/File%3ACarrot_vegetable_on_white_background.jpg) | Public domain | Titus Tscharntke |
 | potato.jpg | [File:Patates.jpg](https://commons.wikimedia.org/wiki/File%3APatates.jpg) | Public domain | Scott Bauer, USDA ARS |
-| corn.jpg | [File:CookedCornOnTheCob.JPG](https://commons.wikimedia.org/wiki/File%3ACookedCornOnTheCob.JPG) | CC BY-SA 3.0 | Jonathunder |
-| pumpkin.jpg | [File:FrenchMarketPumpkinsB.jpg](https://commons.wikimedia.org/wiki/File%3AFrenchMarketPumpkinsB.jpg) | CC BY-SA 3.0 | Infrogmation of New Orleans |
-| pineapple.jpg | [File:കൈതച്ചക്ക.jpg](https://commons.wikimedia.org/wiki/File%3A%E0%B4%95%E0%B5%88%E0%B4%A4%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%95%E0%B5%8D%E0%B4%95.jpg) | CC BY 3.0 | Suniltg at Malayalam Wikipedia |
-| motorbike.jpg | [File:Motorbikes at hanoi vietnam.jpg](https://commons.wikimedia.org/wiki/File%3AMotorbikes_at_hanoi_vietnam.jpg) | CC BY-SA 2.0 | William Whyte |
-| bicycle.jpg | [File:Left_side_of_Flying_Pigeon.jpg](https://commons.wikimedia.org/wiki/File%3ALeft_side_of_Flying_Pigeon.jpg) | CC BY 2.0 | 齐健 from Peking, People's Republic of China |
-| car.jpg | [File:Creamcoffeecolor car on Vũ Phạm Hàm Street 14-02-2026 E2.jpg](https://commons.wikimedia.org/wiki/File%3ACreamcoffeecolor_car_on_V%C5%A9_Ph%E1%BA%A1m_H%C3%A0m_Street_14-02-2026_E2.jpg) | CC BY-SA 4.0 | Hoàng Đức Xuyên T59 |
+| corn.jpg | [File:Corn on the cob (sweet corn).jpg](https://commons.wikimedia.org/wiki/File%3ACorn_on_the_cob_(sweet_corn).jpg) | CC0 | Nutrition, Food Safety & Health |
+| pumpkin.jpg | [File:Pumpkin stack closeup.jpg](https://commons.wikimedia.org/wiki/File%3APumpkin_stack_closeup.jpg) | CC0 | Jeffery Martin |
+| pineapple.jpg | [File:Pineapple on White Background (51942745849).jpg](https://commons.wikimedia.org/wiki/File%3APineapple_on_White_Background_(51942745849).jpg) | CC BY 2.0 | Dejan Krsmanovic |
+| motorbike.jpg | [File:Red Motorcycle in Vietnam.jpg](https://commons.wikimedia.org/wiki/File%3ARed_Motorcycle_in_Vietnam.jpg) | CC BY-SA 2.0 | Andrew Kneebone |
+| bicycle.jpg | [File:California city bicycle side view.JPG](https://commons.wikimedia.org/wiki/File%3ACalifornia_city_bicycle_side_view.JPG) | CC BY-SA 4.0 | User:Javier Carro |
+| car.jpg | [File:Moskvich 400 4-door sedan, Moscow, 2010. side view.jpg](https://commons.wikimedia.org/wiki/File%3AMoskvich_400_4-door_sedan%2C_Moscow%2C_2010._side_view.jpg) | Public domain | Zac allan (talk) |
 | bus.jpg | [File:SAIGON SAMCO BUS VIETNAM JAN 2012 (6821384554).jpg](https://commons.wikimedia.org/wiki/File%3ASAIGON_SAMCO_BUS_VIETNAM_JAN_2012_(6821384554).jpg) | CC BY-SA 2.0 | calflier001 |
-| truck.jpg | [File:2001_Ford_F-250_Super_Duty_XL_regular_cab_flatbed,_front_left,_05-17-2025.jpg](https://commons.wikimedia.org/wiki/File%3A2001_Ford_F-250_Super_Duty_XL_regular_cab_flatbed%2C_front_left%2C_05-17-2025.jpg) | CC BY-SA 4.0 | MercurySable99 |
-| firetruck.jpg | [File:Fire engine ZIL-131 2009 G1.jpg](https://commons.wikimedia.org/wiki/File%3AFire_engine_ZIL-131_2009_G1.jpg) | Public domain | George Chernilevsky |
+| truck.jpg | [File:Da-Nang Vietnam IFA-L60-truck-01.jpg](https://commons.wikimedia.org/wiki/File%3ADa-Nang_Vietnam_IFA-L60-truck-01.jpg) | CC BY-SA 3.0 | CEphoto, Uwe Aranas |
+| firetruck.jpg | [File:Vietnamese fire truck.jpg](https://commons.wikimedia.org/wiki/File%3AVietnamese_fire_truck.jpg) | CC BY 2.0 | Kevin King from Pensacola, FL, US of A |
 | ambulance.jpg | [File:An Viet EcoClinic ambulance 2017.jpg](https://commons.wikimedia.org/wiki/File%3AAn_Viet_EcoClinic_ambulance_2017.jpg) | CC BY-SA 4.0 | Donald Trung |
-| airplane.jpg | [File:United_Airlines_Boeing_777-200_Meulemans.jpg](https://commons.wikimedia.org/wiki/File%3AUnited_Airlines_Boeing_777-200_Meulemans.jpg) | GFDL | Jules Meulemans |
-| helicopter.jpg | [File:VH-SUF_Taking_Off.jpg](https://commons.wikimedia.org/wiki/File%3AVH-SUF_Taking_Off.jpg) | CC BY 4.0 | Fly45yt |
-| ship.jpg | [File:Containerterminal_Altenwerder_(Hamburg-Altenwerder).Iris_Bolten.4.phb.ajb.jpg](https://commons.wikimedia.org/wiki/File%3AContainerterminal_Altenwerder_(Hamburg-Altenwerder).Iris_Bolten.4.phb.ajb.jpg) | CC BY-SA 3.0 de | Ajepbah |
-| canoe.jpg | [File:Long motorboat on the Chao Phraya River in Bangkok.jpg](https://commons.wikimedia.org/wiki/File%3ALong_motorboat_on_the_Chao_Phraya_River_in_Bangkok.jpg) | CC BY-SA 3.0 | Grendelkhan |
-| sampan.jpg | [File:YangtzeSampan.jpg](https://commons.wikimedia.org/wiki/File%3AYangtzeSampan.jpg) | CC SA 1.0 | The original uploader was Leonard G. at English Wikipedia. |
+| train.jpg | [File:Hue Hoi An Train.jpg](https://commons.wikimedia.org/wiki/File%3AHue_Hoi_An_Train.jpg) | CC BY 2.0 | Andy Wright from Sheffield, UK |
+| airplane.jpg | [File:VT-IKN Indigo A320-271N (Ex. VT-ITD) Right side view.jpg](https://commons.wikimedia.org/wiki/File%3AVT-IKN_Indigo_A320-271N_(Ex._VT-ITD)_Right_side_view.jpg) | CC BY-SA 4.0 | TheYoungPilots |
+| helicopter.jpg | [File:Bell 427 JA427A Shin Nihon Helicopter Co., Ltd. 2025 0130 Tokyo Heliport side view.jpg](https://commons.wikimedia.org/wiki/File%3ABell_427_JA427A_Shin_Nihon_Helicopter_Co.%2C_Ltd._2025_0130_Tokyo_Heliport_side_view.jpg) | CC0 | ORANGE 737 |
+| boat.jpg | [File:20190924 Ben Tre river boat-1.jpg](https://commons.wikimedia.org/wiki/File%3A20190924_Ben_Tre_river_boat-1.jpg) | CC0 | Balon Greyjoy |
+| ship.jpg | [File:Cargo ship in Ha Long Bay.jpg](https://commons.wikimedia.org/wiki/File%3ACargo_ship_in_Ha_Long_Bay.jpg) | CC BY-SA 4.0 | Christophe95 |
+| canoe.jpg | [File:Speedboat offshore near Broadstairs, Kent, England.jpg](https://commons.wikimedia.org/wiki/File%3ASpeedboat_offshore_near_Broadstairs%2C_Kent%2C_England.jpg) | CC BY-SA 4.0 | Acabashi |
+| sampan.jpg | [File:Sampan - 44452664924.jpg](https://commons.wikimedia.org/wiki/File%3ASampan_-_44452664924.jpg) | CC BY-SA 2.0 | Rod Waddington |
 | ferry.jpg | [File:Dinh Vu ferry Vietnam.JPG](https://commons.wikimedia.org/wiki/File%3ADinh_Vu_ferry_Vietnam.JPG) | Public domain | Binh Giang |
-| cyclo.jpg | [File:Bangladeshi_style_Rickshaw.jpg](https://commons.wikimedia.org/wiki/File%3ABangladeshi_style_Rickshaw.jpg) | CC BY-SA 3.0 | Liftarn |
-| cablecar.jpg | [File:Ba Na Resort Da Nang, Vietnam.jpg](https://commons.wikimedia.org/wiki/File%3ABa_Na_Resort_Da_Nang%2C_Vietnam.jpg) | CC BY 3.0 | Fa2f |
+| cyclo.jpg | [File:Cyclo Ahead, Hue, Vietnam (7073475837).jpg](https://commons.wikimedia.org/wiki/File%3ACyclo_Ahead%2C_Hue%2C_Vietnam_(7073475837).jpg) | CC BY 2.0 | David McKelvey from Brisbane, Australia |
+| cablecar.jpg | [File:Hon Thom Cable Car aerial view Phu Quoc Island Vietnam.jpg](https://commons.wikimedia.org/wiki/File%3AHon_Thom_Cable_Car_aerial_view_Phu_Quoc_Island_Vietnam.jpg) | CC BY-SA 4.0 | Vivu Vietnam |
 | coach.jpg | [File:SAIGON TO NHA TRANG COACH HYUNDAI AERODECK HI CLASS VIETNAM JAN 2012 (6864383838).jpg](https://commons.wikimedia.org/wiki/File%3ASAIGON_TO_NHA_TRANG_COACH_HYUNDAI_AERODECK_HI_CLASS_VIETNAM_JAN_2012_(6864383838).jpg) | CC BY-SA 2.0 | calflier001 |
-| cow.jpg | [File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg](https://commons.wikimedia.org/wiki/File%3ACow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg) | CC BY-SA 3.0 | Kim Hansen |
-| train.jpg | [File:Поезд_на_фоне_горы_Шатрище._Воронежская_область.jpg](https://commons.wikimedia.org/wiki/File%3A%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4_%D0%BD%D0%B0_%D1%84%D0%BE%D0%BD%D0%B5_%D0%B3%D0%BE%D1%80%D1%8B_%D0%A8%D0%B0%D1%82%D1%80%D0%B8%D1%89%D0%B5._%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.jpg) | CC BY-SA 4.0 | Алексей Задонский |
-| boat.jpg | [File:Motorboat_at_Kankaria_lake.JPG](https://commons.wikimedia.org/wiki/File%3AMotorboat_at_Kankaria_lake.JPG) | CC BY-SA 3.0 | Kondicherry |
 
 ## Shapes and game icons (public/assets/*.svg)
 
@@ -82,6 +86,7 @@ Commons search, Vietnam-context queries first; centre-cropped to 1:1.
 | icon-matching.svg | puzzle piece | 1f9e9 |
 | icon-color.svg | artist palette | 1f3a8 |
 | icon-size.svg | straight ruler | 1f4cf |
+| icon-most-size.svg | up-pointing small red triangle | 1f53c |
 | icon-drawing.svg | pencil | 270f |
 | icon-memory.svg | flower playing cards | 1f3b4 |
 | icon-fruit.svg | grapes | 1f347 |
